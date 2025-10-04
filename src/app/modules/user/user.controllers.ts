@@ -32,8 +32,7 @@ const updateUser = asyncHandler(async(req : Request, res : Response,next : NextF
 
 const getAllUsers = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
     const result = await userServices.getAllUserService();
-
-
+    
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
         success : true,

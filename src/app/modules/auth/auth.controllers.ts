@@ -15,6 +15,7 @@ const authLoginController = asyncHandler(async(req : Request, res : Response,nex
         data : user
     });
 })
+
 export const authController ={
     authLoginController
 }

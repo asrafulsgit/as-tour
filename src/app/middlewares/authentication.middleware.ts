@@ -12,6 +12,7 @@ export const authentication = (...roles : string[])=>async(req : Request ,res : 
         
         const verified = jwt.verify(token,envs.JWT_ACCESS_TOKEN_SECRET) as JwtPayload;
         
+        
         if(!roles.includes((verified as JwtPayload).role)){
             throw new AppError(httpStatusCode.FORBIDDEN,"You can not view this route!")
         }

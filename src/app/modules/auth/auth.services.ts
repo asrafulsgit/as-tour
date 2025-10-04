@@ -26,10 +26,16 @@ const authLoginService = async(payload : Partial<IUser>)=>{
         email : isUserExist.email,
         role : isUserExist.role
     }
-    const token = generateToken(tokenPayload,envs.JWT_ACCESS_TOKEN_SECRET,envs.JWT_ACCESS_TOKEN_EXPIRESIN)
-
+    const accessToken = generateToken(tokenPayload,envs.JWT_ACCESS_TOKEN_SECRET,envs.JWT_ACCESS_TOKEN_EXPIRESIN);
+    const refreshToken = generateToken(tokenPayload,envs.JWT_REFRESH_TOKEN_SECRET,envs.JWT_REFRESH_TOKEN_EXPIRESIN);
+    
+    const user = isUserExist.toObject();
+    delete user.password;
+    
     return {
-        token
+        accessToken,
+        refreshToken,
+        user 
     };
 }
 
