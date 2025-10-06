@@ -60,7 +60,7 @@ const userUpdateService = async(userId : string, payload : Partial<IUser>,decode
 }
 
 const getAllUserService =async()=>{
-    const users = await User.find();
+    const users = await User.find().select('-password');
     const total = await User.countDocuments();
     return {
         users,
