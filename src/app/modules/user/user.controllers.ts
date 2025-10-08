@@ -4,6 +4,7 @@ import { userServices } from "./user.services";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
 import { decodedToken } from "../../utils/decodedToken";
+import { JwtPayload } from "jsonwebtoken";
 
 
 const createUser = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
@@ -20,7 +21,7 @@ const createUser = asyncHandler(async(req : Request, res : Response,next : NextF
 const updateUser = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
     const userId = req.params.id;
     const decodedToken = req.user;
-    const user = await userServices.userUpdateService(userId,req.body,decodedToken);
+    const user = await userServices.userUpdateService(userId,req.body,decodedToken as JwtPayload);
 
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
