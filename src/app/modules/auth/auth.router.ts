@@ -18,8 +18,6 @@ router.get('/google',(req:Request,res:Response,next:NextFunction)=>{
     passport.authenticate("google",{scope : ['profile','email']})(req,res,next)
 })
 
-router.get('/google/callback',passport.authenticate("google",{failureRedirect : '/google-auth/failed'}),(req:Request,res:Response,next:NextFunction)=>{
-    res.redirect(envs.FRONTEND_URL)
-})
+router.get('/google/callback',passport.authenticate("google",{failureRedirect : '/google-auth/failed'}),authController.googleAuthLoginController)
 
 export const authRouter = router;

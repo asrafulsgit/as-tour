@@ -5,6 +5,8 @@ import { sendResponse } from "../../utils/sendResponse";
 import httpStatusCode from 'http-status-codes';
 import AppError from "../../errorHelpers/appError";
 import { setAuthTokens } from "../../utils/setAuthTokens";
+import { JwtPayload } from "jsonwebtoken";
+import { envs } from "../../config/env";
 
 
 const authLoginController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
@@ -17,7 +19,6 @@ const authLoginController = asyncHandler(async(req : Request, res : Response,nex
         data : user
     });
 });
-
 
 const getAccessTokenController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
     const refreshToken = req.cookies.refreshToken;
@@ -64,8 +65,7 @@ const authResetPasswordController = asyncHandler(async(req : Request, res : Resp
     const userData = req.user;
     const {newPassword,oldPassword} = req.body;
 
-    await authServices.resetPasswordService(oldPassword,newPassword,userData);
-
+    await authServices.resetPasswordService(oldPassword,newPassword,userData as JwtPayload);
     
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
@@ -75,10 +75,18 @@ const authResetPasswordController = asyncHandler(async(req : Request, res : Resp
     });
 });
 
+const googleAuthLoginController = asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
+    const user = req.user;
+    setAuthTokens(res,user!);
+     
+    res.redirect(envs.FRONTEND_URL);
+});
+
 
 export const authController ={
     authLoginController,
     getAccessTokenController,
     authLogoutController,
-    authResetPasswordController
+    authResetPasswordController,
+    googleAuthLoginController
 }
