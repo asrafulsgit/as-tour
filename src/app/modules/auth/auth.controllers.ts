@@ -7,6 +7,7 @@ import AppError from "../../errorHelpers/appError";
 import { setAuthTokens } from "../../utils/setAuthTokens";
 import { JwtPayload } from "jsonwebtoken";
 import { envs } from "../../config/env";
+import { getBothToken } from "../../utils/getBothToken";
 
 
 const authLoginController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
@@ -77,8 +78,8 @@ const authResetPasswordController = asyncHandler(async(req : Request, res : Resp
 
 const googleAuthLoginController = asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
     const user = req.user;
-    setAuthTokens(res,user!);
-     
+    const tokens = getBothToken(user!)
+    setAuthTokens(res,tokens);
     res.redirect(envs.FRONTEND_URL);
 });
 
