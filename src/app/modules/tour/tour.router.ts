@@ -15,13 +15,13 @@ router.post('/tourType/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourT
 router.get('/tourType/all',tourTypeControllers.getAllTourTypesController);
 
 // get single tourType
-router.get('/:id',tourTypeControllers.getSingleTourTypeController);
+router.get('/tourType/:id',tourTypeControllers.getSingleTourTypeController);
 
 //update tourType
-router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.updateTourTypeController);
+router.patch('/tourType/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.updateTourTypeController);
 
 //delete tourType
-router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.deletetourTypeController);
+router.delete('/tourType/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.deletetourTypeController);
 
 
 export const tourRouter = router;
