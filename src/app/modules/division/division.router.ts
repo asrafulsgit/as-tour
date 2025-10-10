@@ -17,7 +17,7 @@ router.get('/:slug',divisionControllers.getSingleDivisionController)
 //update division
 router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.updateDivisionController);
 
-//update division
+//delete division
 router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.deleteDivisionController);
 
 
