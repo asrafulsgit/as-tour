@@ -12,8 +12,13 @@ router.post('/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionContro
 router.get('/all',divisionControllers.getAllDivisionsController);
 
 // get single division
-// router.patch('/:slug',)
+router.get('/:slug',divisionControllers.getSingleDivisionController)
 
-// router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),)
+//update division
+router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.updateDivisionController);
+
+//update division
+router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.deleteDivisionController);
+
 
 export const divisionRouter = router;

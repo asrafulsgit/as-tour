@@ -10,7 +10,6 @@ const divisionShcema = new Schema<IDivision>({
     },
     slug : {
         type : String,
-        required : [true,"Slug is required"],
         unique : true
     },
     thumbnail : {
@@ -23,5 +22,44 @@ const divisionShcema = new Schema<IDivision>({
     timestamps : true,
     versionKey : false
 });
+
+
+divisionShcema.pre("save", async function(next){
+     
+    if(this.isModified("name")){
+        const baseSlug = this.name.toLowerCase().split(" ").join("-");
+        let slug = `${baseSlug}-division`;
+
+        let count = 0;
+        while(await Division.exists({slug})){
+            slug = `${slug}-${count++}`
+        }
+        
+        this.slug = slug;
+    }
+
+    next();
+});
+
+divisionShcema.pre("findOneAndUpdate", async function(next){
+    const division = this.getUpdate() as Partial<IDivision>;
+    if(division.name){
+        const baseSlug = division.name.toLowerCase().split(" ").join("-");
+        let slug = `${baseSlug}-division`;
+
+        let count = 0;
+        while(await Division.exists({slug})){
+            slug = `${slug}-${count++}`
+        }
+        
+        division.slug = slug;
+    }
+
+    this.setUpdate(division);
+
+    next();
+});
+
+
 
 export const Division = model<IDivision>('Division',divisionShcema);

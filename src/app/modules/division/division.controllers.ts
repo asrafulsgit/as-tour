@@ -42,9 +42,37 @@ const getSingleDivisionController = asyncHandler(async(req : Request, res : Resp
     });
 });
 
+// update division controller
+const updateDivisionController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+    const divisionId = req.params.id;
+
+    const results = await divisionServices.updateDivisionService(divisionId,req.body);
+
+    sendResponse(res,{
+        statusCode : httpStatusCode.OK,
+        success : true,
+        message : 'Division updated',
+        data : results
+    });
+});
+
+// delete division controller
+const deleteDivisionController = asyncHandler(async (req: Request, res: Response) => {
+     const divisionId = req.params.id;
+    const result = await divisionServices.deleteDivisionService(divisionId);
+    sendResponse(res, {
+        statusCode: httpStatusCode.OK,
+        success: true,
+        message: "Division deleted",
+        data: null
+    });
+});
+
 
 export const divisionControllers = {
     createDivisionController,
     getAllDivisionsController,
-    getSingleDivisionController
+    getSingleDivisionController,
+    updateDivisionController,
+    deleteDivisionController
 }

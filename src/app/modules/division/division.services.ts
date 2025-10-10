@@ -1,5 +1,4 @@
 import AppError from "../../errorHelpers/appError";
-import { IUser } from "../user/user.interface";
 import { IDivision } from "./division.interface";
 import { Division } from "./division.model";
 import httpStatusCode from 'http-status-codes';
@@ -13,11 +12,8 @@ const createDivisionService =async(payload : Partial<IDivision>)=>{
         throw new AppError(httpStatusCode.BAD_REQUEST,"Division Already Exist.");
     }
 
-    // const baseSlug = payload.name?.toLocaleLowerCase().split(" ").join("-");
-    // const slug = `${baseSlug}-division`
-    
-
-    const division = await Division.create(payload);
+    const division = new Division(payload);  
+  await division.save();
 
     return division;
 
@@ -38,15 +34,42 @@ const getAllDivisionsService =async()=>{
 
 // get single division service
 const getSingleDivisionService =async(slug : string)=>{
-
     const division = await Division.findOne({slug});
-
     return division;
-
 }
+
+// update division service
+const updateDivisionService =async(divisionId : string, payload : Partial<IDivision>)=>{
+    const division = await Division.findById(divisionId);
+    if(!division){
+        throw new AppError(httpStatusCode.NOT_FOUND,"Division not found");
+    }
+
+    const duplicateDivision = await Division.findOne({
+        name : payload.name,
+        _id : {$ne : divisionId}
+    });
+
+    if(duplicateDivision){
+        throw new AppError(httpStatusCode.BAD_REQUEST,"A division with this name already exist")
+    }
+
+    const updatedDivision = await Division.findByIdAndUpdate(divisionId,payload,{new : true, runValidators : true})
+    
+    return updatedDivision;
+}
+
+// delete division service
+const deleteDivisionService =async(divisionId : string)=>{
+     await Division.findByIdAndDelete(divisionId);
+}
+
+
 
 export const divisionServices ={
     createDivisionService,
     getAllDivisionsService,
-    getSingleDivisionService
+    getSingleDivisionService,
+    updateDivisionService,
+    deleteDivisionService
 }
