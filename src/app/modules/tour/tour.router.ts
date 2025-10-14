@@ -32,7 +32,7 @@ router.delete('/tourType/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTy
 router.post('/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.createTourController);
 
 // get all tour 
-router.get('/all',tourControllers.createTourController);
+router.get('/all-tours',tourControllers.getAllToursController);
 
 // get single tour
 router.get('/:id',tourControllers.getSingleTourController);

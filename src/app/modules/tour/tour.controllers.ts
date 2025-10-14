@@ -3,6 +3,7 @@ import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatusCode from 'http-status-codes'; 
 import { tourServices, tourTypeServices } from "./tour.services";
+import { Tour } from "./tour.model";
 
 // create tourType controller
 const createTourTypeController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
@@ -118,7 +119,7 @@ const getSingleTourController = asyncHandler(async(req : Request, res : Response
 // update tour controller
 const updateTourController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
     const tourId = req.params.id;
-
+    
     const results = await tourServices.updateTourService(tourId,req.body);
 
     sendResponse(res,{

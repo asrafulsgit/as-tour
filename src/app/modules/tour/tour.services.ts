@@ -82,6 +82,7 @@ const createTourService =async(payload : Partial<ITour>)=>{
 // get all tours  service
 const getAllToursService =async()=>{
     const tours = await Tour.find({});
+ 
     const totalTours = await Tour.countDocuments();
 
     return {
@@ -93,7 +94,9 @@ const getAllToursService =async()=>{
 
 // get single tour service
 const getSingleTourService =async(tourId : string)=>{
-    const tour = await Tour.findById(tourId);
+    const tour = await Tour.findById(tourId)
+    .populate('tourType',"name")
+    .populate('division',"name");
     return tour;
 }
 
@@ -104,7 +107,8 @@ const updateTourService =async(tourId : string, payload : Partial<ITour>)=>{
         throw new AppError(httpStatusCode.NOT_FOUND,"Tour not found");
     }
 
-    const updateTour = await Tour.findByIdAndUpdate(tourId,payload,{new : true, runValidators : true})
+    const updateTour = await Tour.findByIdAndUpdate(tourId,
+        payload,{new : true, runValidators : true});
     
     return updateTour;
 }
