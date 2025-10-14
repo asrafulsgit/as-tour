@@ -1,7 +1,7 @@
 import AppError from "../../errorHelpers/appError"; 
 import httpStatusCode from 'http-status-codes';
-import { ITourType } from "./tour.interface";
-import { TourType } from "./tour.model";
+import { ITour, ITourType } from "./tour.interface";
+import { Tour, TourType } from "./tour.model";
 
 // create tourType service
 const createTourTypeService =async(payload : Partial<ITourType>)=>{
@@ -62,4 +62,62 @@ export const tourTypeServices ={
      getSingleTourTypeService,
      updateTourTypeService,
      deleteTourTypeService
+}
+
+
+// create tour service
+const createTourService =async(payload : Partial<ITour>)=>{
+
+    const isExistTour = await Tour.findOne({title : payload.title});
+
+    if(isExistTour){ 
+        throw new AppError(httpStatusCode.BAD_REQUEST,"Tour Already Exist.");
+    }
+
+    const tour = await Tour.create(payload);
+
+    return tour;
+}
+
+// get all tours  service
+const getAllToursService =async()=>{
+    const tours = await Tour.find({});
+    const totalTours = await Tour.countDocuments();
+
+    return {
+         data : tours,
+         meta : {totalTours}
+    };
+
+}
+
+// get single tour service
+const getSingleTourService =async(tourId : string)=>{
+    const tour = await Tour.findById(tourId);
+    return tour;
+}
+
+// update tour service
+const updateTourService =async(tourId : string, payload : Partial<ITour>)=>{
+    const tour = await Tour.findById(tourId);
+    if(!tour){
+        throw new AppError(httpStatusCode.NOT_FOUND,"Tour not found");
+    }
+
+    const updateTour = await Tour.findByIdAndUpdate(tourId,payload,{new : true, runValidators : true})
+    
+    return updateTour;
+}
+
+// delete tour service
+const deleteTourService =async(tourId : string)=>{
+     await Tour.findByIdAndDelete(tourId);
+}
+
+export const tourServices = {
+    createTourService,
+    getAllToursService,
+    getSingleTourService,
+    updateTourService,
+    deleteTourService
 }

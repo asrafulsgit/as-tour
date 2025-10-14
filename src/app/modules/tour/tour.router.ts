@@ -4,9 +4,11 @@
 import { Router } from "express";
 import { authentication } from "../../middlewares/authentication.middleware";
 import { Role } from "../user/user.interface"; 
-import { tourTypeControllers } from "./tour.controllers";
+import { tourControllers, tourTypeControllers } from "./tour.controllers";
 
 const router = Router();
+
+/*------------------------Tour Type Routers------------------------------*/
 
 // create tourType
 router.post('/tourType/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.createTourTypeController);
@@ -22,6 +24,24 @@ router.patch('/tourType/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTyp
 
 //delete tourType
 router.delete('/tourType/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.deletetourTypeController);
+
+
+/*------------------------Tour Routers------------------------------*/
+
+// create tour 
+router.post('/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.createTourController);
+
+// get all tour 
+router.get('/all',tourControllers.createTourController);
+
+// get single tour
+router.get('/:id',tourControllers.getSingleTourController);
+
+//update tour
+router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.updateTourController);
+
+//delete tour
+router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.deletetourController);
 
 
 export const tourRouter = router;
