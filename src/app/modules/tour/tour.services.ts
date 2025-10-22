@@ -2,6 +2,7 @@ import AppError from "../../errorHelpers/appError";
 import httpStatusCode from 'http-status-codes';
 import { ITour, ITourType } from "./tour.interface";
 import { Tour, TourType } from "./tour.model";
+import { QueryBuilder } from "../../utils/queryBuilder";
 
 // create tourType service
 const createTourTypeService =async(payload : Partial<ITourType>)=>{
@@ -80,14 +81,25 @@ const createTourService =async(payload : Partial<ITour>)=>{
 }
 
 // get all tours  service
-const getAllToursService =async()=>{
-    const tours = await Tour.find({});
- 
-    const totalTours = await Tour.countDocuments();
+const getAllToursService =async(query : Record<string,string>)=>{
+     
+     const queryBuilder = new QueryBuilder(Tour.find(), query)
 
+    const tours = await queryBuilder
+        .search()
+        .filter()
+        .sort()
+        .paginate();
+ 
+    
+    const [data,meta]= await Promise.all([
+        tours.build(),
+        tours.getMeta()
+    ])
+    
     return {
-         data : tours,
-         meta : {totalTours}
+         data,
+         meta 
     };
 
 }

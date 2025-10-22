@@ -92,14 +92,14 @@ const createTourController = asyncHandler(async (req: Request, res: Response) =>
 
 // get all tours controller
 const getAllToursController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-    const results = await tourServices.getAllToursService();
+    const results = await tourServices.getAllToursService(req.query as Record<string,string>);
 
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
         success : true,
         message : 'tours retrived',
         data : results.data,
-        meta : {  total : results.meta.totalTours }
+        meta : results.meta
     });
 });
 
