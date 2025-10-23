@@ -2,11 +2,15 @@ import { Router } from "express";
 import { authentication } from "../../middlewares/authentication.middleware";
 import { Role } from "../user/user.interface";
 import { divisionControllers } from "./division.controllers";
+import { multerUpload } from "../../config/multer";
 
 const router = Router();
 
 // create division
-router.post('/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.createDivisionController);
+router.post('/create',
+    authentication(Role.ADMIN,Role.SUPER_ADMIN),
+    multerUpload.single('image'),
+    divisionControllers.createDivisionController);
 
 //get all divisions
 router.get('/all',divisionControllers.getAllDivisionsController);

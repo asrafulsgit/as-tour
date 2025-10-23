@@ -3,10 +3,17 @@ import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatusCode from 'http-status-codes';
 import { divisionServices } from "./division.services";
+import { IDivision } from "./division.interface";
 
 // create division controller
 const createDivisionController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-    const data = await divisionServices.createDivisionService(req.body);
+     
+    const payload : IDivision = {
+        ...req.body,
+        thumbnail : req.file?.path 
+    }
+    
+    const data = await divisionServices.createDivisionService(payload);
 
     sendResponse(res,{
         statusCode : httpStatusCode.CREATED,
