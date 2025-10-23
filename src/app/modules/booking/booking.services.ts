@@ -7,6 +7,8 @@ import { Booking } from "./booking.model";
 import { Payment } from "../payment/payment.model";
 import { PAYMENT_STATUS } from "../payment/payment.interface";
 import { Tour } from "../tour/tour.model";
+import { ISSlCommerz } from "../sslCommerz/ssl.interface";
+import { sslCommerzServices } from "../sslCommerz/ssl.services";
 
 
 const  generateTransactionId = () => {
@@ -15,7 +17,7 @@ const  generateTransactionId = () => {
 
 // create booking service
 const createBookingService =async(payload : Partial<IBooking>,userId : string)=>{
-
+    const tran_id = generateTransactionId();
     const session = await Booking.startSession();
     session.startTransaction();
     try {
@@ -43,7 +45,7 @@ const createBookingService =async(payload : Partial<IBooking>,userId : string)=>
         const payment = await Payment.create([{
             booking: booking[0]._id,
             status: PAYMENT_STATUS.UNPAID,
-            transactionId: generateTransactionId(),
+            transactionId: tran_id,
             amount: amount
         }],{session} )
 
@@ -57,9 +59,29 @@ const createBookingService =async(payload : Partial<IBooking>,userId : string)=>
             .populate("tour", "title costFrom")
             .populate("payment"); 
 
+
+            const userAddress = (updatedBooking?.user as any).address;
+        const userEmail = (updatedBooking?.user as any).email;
+        const userPhoneNumber = (updatedBooking?.user as any).phone;
+        const userName = (updatedBooking?.user as any).name;
+
+        const sslPayload: ISSlCommerz = {
+            address: userAddress,
+            email: userEmail,
+            phone: userPhoneNumber,
+            name: userName,
+            amount: amount,
+            transactionId: tran_id
+        }
+
+        const sslPayment = await sslCommerzServices.sslCommerzInitializeService(sslPayload)
+
         await session.commitTransaction();
         session.endSession();
-        return updatedBooking;
+        return {
+            paymentUrl : sslPayment.GatewayPageURL,
+            booking : updatedBooking
+        };
     } catch (error) {
         await session.abortTransaction();
         session.endSession();

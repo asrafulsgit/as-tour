@@ -1,7 +1,7 @@
 import axios from "axios";
-import { envs } from "../config/env";
+import { envs } from "../../config/env";
 import { ISSlCommerz } from "./ssl.interface";
-import AppError from "../errorHelpers/appError";
+import AppError from "../../errorHelpers/appError";
 import httpStatusCode from "http-status-codes";
 
 
