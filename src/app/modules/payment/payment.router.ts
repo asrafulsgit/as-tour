@@ -7,7 +7,7 @@ const router = Router();
 
 
 // payment successfull 
-router.post('/success', paymentControllers.paymentSuccessController);
+router.post('/re-payment/:bookingId', paymentControllers.initPaymentController);
 
 // payment successfull 
 router.post('/success', paymentControllers.paymentSuccessController);

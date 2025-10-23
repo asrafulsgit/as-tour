@@ -7,7 +7,7 @@ import { envs } from "../../config/env";
 
 
 // re payment controller 
-const initPayment = asyncHandler(async (req: Request, res: Response) => {
+const initPaymentController = asyncHandler(async (req: Request, res: Response) => {
     const bookingId = req.params.bookingId;
     const result = await paymentServices.initPaymentService(bookingId as string)
     sendResponse(res, {
@@ -56,5 +56,6 @@ const paymentCancelController = asyncHandler(async (req: Request,
 export const paymentControllers ={
     paymentSuccessController,
     paymentFailController,
-paymentCancelController
+    paymentCancelController,
+    initPaymentController
 }
