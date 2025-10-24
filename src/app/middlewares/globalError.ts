@@ -1,10 +1,22 @@
 import { NextFunction, Request, Response } from "express";
 import { envs } from "../config/env";
 import AppError from "../errorHelpers/appError";
+import { deleteCloudinaryImage } from "../config/cloudinary";
 
-export const globalErrorHandle = (err : any , req : Request, res : Response, next : NextFunction)=>{
+export const globalErrorHandle = async(err : any , req : Request, res : Response, next : NextFunction)=>{
     let statusCode = 500;
     let message = `Something went wrong!`;
+
+    // delete single image when api has error
+    if(req.file){
+        await deleteCloudinaryImage(req.file.path);
+    }
+
+    // delete multiple images when api has error
+    if(req.files && Array.isArray(req.files) && req.files.length){
+        const images = (req.files as Express.Multer.File[]).map(file => file.path);
+        await Promise.all(images.map(image => deleteCloudinaryImage(image)));
+    }
 
     //mongoose duplicate error
     if(err.code === 11000){

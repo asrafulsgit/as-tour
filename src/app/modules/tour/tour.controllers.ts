@@ -4,6 +4,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import httpStatusCode from 'http-status-codes'; 
 import { tourServices, tourTypeServices } from "./tour.services";
 import { Tour } from "./tour.model";
+import { ITour } from "./tour.interface";
 
 // create tourType controller
 const createTourTypeController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
@@ -81,7 +82,12 @@ export const tourTypeControllers = {
 
 // create tour controller
 const createTourController = asyncHandler(async (req: Request, res: Response) => {
-    const result = await tourServices.createTourService(req.body);
+    
+    const payload : ITour = {
+        ...req.body,
+        images : (req.files as Express.Multer.File[])?.map(file => file.path)
+    } 
+    const result = await tourServices.createTourService(payload);
     sendResponse(res, {
         statusCode: httpStatusCode.CREATED,
         success: true,
@@ -111,7 +117,7 @@ const getSingleTourController = asyncHandler(async(req : Request, res : Response
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
         success : true,
-        message : 'tour retrived',
+        message : 'Tour retrived',
         data : results
     });
 });
@@ -119,13 +125,20 @@ const getSingleTourController = asyncHandler(async(req : Request, res : Response
 // update tour controller
 const updateTourController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
     const tourId = req.params.id;
+
+    const images = (req.files as Express.Multer.File[]).map(file => file.path);
+  
+    const payload : Partial<ITour> ={
+        ...req.body,
+        images
+    }
     
-    const results = await tourServices.updateTourService(tourId,req.body);
+    const results = await tourServices.updateTourService(tourId,payload);
 
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
         success : true,
-        message : 'tour updated',
+        message : 'Tour updated',
         data : results
     });
 });

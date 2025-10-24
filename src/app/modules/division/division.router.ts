@@ -19,7 +19,10 @@ router.get('/all',divisionControllers.getAllDivisionsController);
 router.get('/:slug',divisionControllers.getSingleDivisionController)
 
 //update division
-router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.updateDivisionController);
+router.patch('/:id',
+    authentication(Role.ADMIN,Role.SUPER_ADMIN),
+    multerUpload.single('image'),
+    divisionControllers.updateDivisionController);
 
 //delete division
 router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.deleteDivisionController);

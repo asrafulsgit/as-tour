@@ -5,13 +5,16 @@ import { Router } from "express";
 import { authentication } from "../../middlewares/authentication.middleware";
 import { Role } from "../user/user.interface"; 
 import { tourControllers, tourTypeControllers } from "./tour.controllers";
+import { multerUpload } from "../../config/multer";
 
 const router = Router();
 
 /*------------------------Tour Type Routers------------------------------*/
 
 // create tourType
-router.post('/tourType/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTypeControllers.createTourTypeController);
+router.post('/tourType/create',
+    authentication(Role.ADMIN,Role.SUPER_ADMIN),
+    tourTypeControllers.createTourTypeController);
 
 //get all tourTypes
 router.get('/tourType/all',tourTypeControllers.getAllTourTypesController);
@@ -29,7 +32,10 @@ router.delete('/tourType/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourTy
 /*------------------------Tour Routers------------------------------*/
 
 // create tour 
-router.post('/create',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.createTourController);
+router.post('/create',
+    authentication(Role.ADMIN,Role.SUPER_ADMIN),
+     multerUpload.array("images"),
+    tourControllers.createTourController);
 
 // get all tour 
 router.get('/all-tours',tourControllers.getAllToursController);
@@ -38,7 +44,10 @@ router.get('/all-tours',tourControllers.getAllToursController);
 router.get('/:id',tourControllers.getSingleTourController);
 
 //update tour
-router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.updateTourController);
+router.patch('/:id',
+    authentication(Role.ADMIN,Role.SUPER_ADMIN),
+    multerUpload.array("images"),
+    tourControllers.updateTourController);
 
 //delete tour
 router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.deletetourController);

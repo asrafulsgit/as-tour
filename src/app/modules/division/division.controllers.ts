@@ -52,8 +52,13 @@ const getSingleDivisionController = asyncHandler(async(req : Request, res : Resp
 // update division controller
 const updateDivisionController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
     const divisionId = req.params.id;
+    const image = req.file?.path;
 
-    const results = await divisionServices.updateDivisionService(divisionId,req.body);
+    const payload : Partial<IDivision> ={
+        ...req.body,
+        thumbnail : image
+    }
+    const results = await divisionServices.updateDivisionService(divisionId,payload);
 
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
