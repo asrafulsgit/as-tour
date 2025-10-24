@@ -61,12 +61,27 @@ const authLogoutController = asyncHandler(async(req : Request, res : Response,ne
         data : null
     });
 });
-const authResetPasswordController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+
+const authChangePasswordController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
 
     const userData = req.user;
     const {newPassword,oldPassword} = req.body;
 
-    await authServices.resetPasswordService(oldPassword,newPassword,userData as JwtPayload);
+    await authServices.changePasswordService(oldPassword,newPassword,userData as JwtPayload);
+    
+    sendResponse(res,{
+        statusCode : httpStatusCode.OK,
+        success : true,
+        message : 'Password reset successfull',
+        data : null
+    });
+});
+
+const authSetPasswordController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+
+    const user = req.user as JwtPayload;
+    const {password} = req.body;
+    await authServices.setPasswordService(user.id, password);
     
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
@@ -88,6 +103,7 @@ export const authController ={
     authLoginController,
     getAccessTokenController,
     authLogoutController,
-    authResetPasswordController,
-    googleAuthLoginController
+    authChangePasswordController,
+    authSetPasswordController,
+    googleAuthLoginController,
 }
