@@ -3,7 +3,7 @@ import passport from "passport";
 import {Strategy as GoogleStrategy, Profile, VerifyCallback} from 'passport-google-oauth20';
 import { envs } from "./env";
 import { User } from "../modules/user/user.model";
-import { Role } from "../modules/user/user.interface";
+import { IsActive, Role } from "../modules/user/user.interface";
 
 passport.use(
     new GoogleStrategy ({
@@ -18,6 +18,22 @@ passport.use(
         }
 
         let user = await User.findOne({email});
+         if (
+            user && !user.isVerified
+          ) {
+             return done(null,false,{message : 'User is not verified'})
+          }
+          if (
+           user && (user.isActive === IsActive.BLOCKED ||
+            user.isActive === IsActive.INACTIVE)
+          ) {
+             return done(null,false,{message : `User is ${user.isActive}`})
+          }
+    
+          if (user && user.isDeleted) {
+            return done(null,false,{message : 'User deleted'});
+          }
+          
         if(!user){
             user = await User.create({
                 email,

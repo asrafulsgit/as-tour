@@ -24,7 +24,15 @@ export const authentication =
       if (!isUserExist) {
         throw new AppError(httpStatusCode.NOT_FOUND, "User not found");
       }
-
+      
+      if (
+        !isUserExist.isVerified
+      ) {
+        throw new AppError(
+          httpStatusCode.BAD_REQUEST,
+          `User is not verified`
+        );
+      }
       if (
         isUserExist.isActive === IsActive.BLOCKED ||
         isUserExist.isActive === IsActive.INACTIVE
