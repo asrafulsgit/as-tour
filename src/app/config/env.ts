@@ -30,6 +30,11 @@ SSL_CANCEL_FRONTEND_URL : string;
 CLOUD_NAME : string;
 CLOUD_API_KEY : string;
 CLOUD_API_SECRET : string;
+SMTP_PASS : string;
+SMTP_USER : string;
+SMTP_HOST : string;
+SMTP_FROM : string;
+SMTP_PORT : string;
 }
 
 const envsLoading = (): EnvsConfig => {
@@ -60,6 +65,11 @@ const envsLoading = (): EnvsConfig => {
 "CLOUD_NAME",
 "CLOUD_API_KEY",
 "CLOUD_API_SECRET",
+"SMTP_PASS",
+"SMTP_USER",
+"SMTP_HOST",
+"SMTP_FROM",
+"SMTP_PORT",
   ];
 
   properties.forEach((key) => {
@@ -97,7 +107,12 @@ const envsLoading = (): EnvsConfig => {
     SSL_CANCEL_FRONTEND_URL : process.env.SSL_CANCEL_FRONTEND_URL as string,
     CLOUD_NAME : process.env.CLOUD_NAME as string,
     CLOUD_API_KEY : process.env.CLOUD_API_KEY as string,
-    CLOUD_API_SECRET : process.env.CLOUD_API_SECRET as string
+    CLOUD_API_SECRET : process.env.CLOUD_API_SECRET as string,
+    SMTP_PASS : process.env.SMTP_PASS as string,
+    SMTP_USER : process.env.SMTP_USER as string,
+    SMTP_HOST : process.env.SMTP_HOST as string,
+    SMTP_FROM : process.env.SMTP_FROM as string,
+    SMTP_PORT : process.env.SMTP_PORT as string,
   };
 };
 
