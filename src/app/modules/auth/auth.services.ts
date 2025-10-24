@@ -122,7 +122,7 @@ const forgotPasswordService = async (email: string) => {
     }
 
     const jwtPayload = {
-        userId: isUserExist._id,
+        id: isUserExist._id,
         email: isUserExist.email,
         role: isUserExist.role
     }
@@ -136,28 +136,35 @@ const forgotPasswordService = async (email: string) => {
     sendEmail({
         to: isUserExist.email,
         subject: "Password Reset",
-        templateName: "forgetPassword",
+        templateName: "forgotPassword",
         templateData: {
             name: isUserExist.name,
             resetUILink
-        }
+        } 
     })
  
 }
 
-// const resetPasswordService = async(userId : string, password : string)=>{
-     
-//     const user = await User.findById(userData.id);
-//     const isCorrectPassword = await bcrypt.compare(oldPassword,user?.password as string) 
-//     if(!isCorrectPassword){
-//         throw new AppError(httpStatusCode.BAD_REQUEST, "Old password does not match");
-//     }
+const resetPasswordService = async (payload: Record<string, any>, decodedToken: JwtPayload) => {
+    if (payload.id != decodedToken.id) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "You can not reset your password")
+    }
 
-//     const hashedPassword = await bcrypt.hash(newPassword,Number(envs.BCRYPT_SALT));
+    const isUserExist = await User.findById(decodedToken.id)
     
-//     user!.password = hashedPassword;
-//     await user?.save();
-// }
+    if (!isUserExist) {
+        throw new AppError(401, "User does not exist")
+    }
+
+    const hashedPassword = await bcrypt.hash(
+        payload.newPassword,
+        Number(envs.BCRYPT_SALT)
+    )
+
+    isUserExist.password = hashedPassword;
+
+    await isUserExist.save()
+}
 
 
 
@@ -167,5 +174,6 @@ export const authServices = {
     getAccessTokenService,
     changePasswordService,
     setPasswordService,
-    forgotPasswordService
+    forgotPasswordService,
+    resetPasswordService
 }

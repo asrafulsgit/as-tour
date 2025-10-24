@@ -99,13 +99,22 @@ const authForgotPasswordController = asyncHandler(async(req : Request, res : Res
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
         success : true,
-        message : 'Email sent',
+        message : 'Email sent successfull',
         data : null
     });
 });
+const authResetPasswordController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
 
+    const decodedToken = req.user;
+    await authServices.resetPasswordService(req.body, decodedToken as JwtPayload);
 
-
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatusCode.OK,
+        message: "Password Changed Successfully",
+        data: null,
+    })
+});
 
 
 const googleAuthLoginController = asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
@@ -123,5 +132,6 @@ export const authController ={
     authChangePasswordController,
     authSetPasswordController,
     authForgotPasswordController,
+    authResetPasswordController,
     googleAuthLoginController,
 }

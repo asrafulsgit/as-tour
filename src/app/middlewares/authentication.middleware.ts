@@ -19,6 +19,7 @@ export const authentication =
         token,
         envs.JWT_ACCESS_TOKEN_SECRET
       ) as JwtPayload;
+       
       const isUserExist = await User.findById(verified.id);
 
       if (!isUserExist) {
