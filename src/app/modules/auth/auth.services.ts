@@ -8,6 +8,7 @@ import { envs } from "../../config/env";
 import { generateToken } from "../../utils/generateToken";
 import { createAccessTokenFromRefreshToken, getBothToken } from "../../utils/getBothToken";
 import { decodedToken } from "../../utils/decodedToken";
+import { sendEmail } from "../../utils/sendMail";
 
 const authLoginService = async(payload : Partial<IUser>)=>{
     const {email,password}= payload;
@@ -102,7 +103,48 @@ const setPasswordService = async(userId : string, password : string)=>{
     user.auths = userAuths;
     
     await user.save();
+} 
+
+const forgotPasswordService = async (email: string) => {
+    const isUserExist = await User.findOne({ email });
+
+    if (!isUserExist) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "User does not exist")
+    }
+    if (!isUserExist.isVerified) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "User is not verified")
+    }
+    if (isUserExist.isActive === IsActive.BLOCKED || isUserExist.isActive === IsActive.INACTIVE) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, `User is ${isUserExist.isActive}`)
+    }
+    if (isUserExist.isDeleted) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "User is deleted")
+    }
+
+    const jwtPayload = {
+        userId: isUserExist._id,
+        email: isUserExist.email,
+        role: isUserExist.role
+    }
+
+    const resetToken = jwt.sign(jwtPayload, envs.JWT_ACCESS_TOKEN_SECRET, {
+        expiresIn: "10m"
+    })
+
+    const resetUILink = `${envs.FRONTEND_URL}/reset-password?id=${isUserExist._id}&token=${resetToken}`
+
+    sendEmail({
+        to: isUserExist.email,
+        subject: "Password Reset",
+        templateName: "forgetPassword",
+        templateData: {
+            name: isUserExist.name,
+            resetUILink
+        }
+    })
+ 
 }
+
 // const resetPasswordService = async(userId : string, password : string)=>{
      
 //     const user = await User.findById(userData.id);
@@ -124,5 +166,6 @@ export const authServices = {
     authLoginService,
     getAccessTokenService,
     changePasswordService,
-    setPasswordService
+    setPasswordService,
+    forgotPasswordService
 }

@@ -91,6 +91,23 @@ const authSetPasswordController = asyncHandler(async(req : Request, res : Respon
     });
 });
 
+const authForgotPasswordController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+
+    const {email} = req.body;
+    await authServices.forgotPasswordService(email);
+    
+    sendResponse(res,{
+        statusCode : httpStatusCode.OK,
+        success : true,
+        message : 'Email sent',
+        data : null
+    });
+});
+
+
+
+
+
 const googleAuthLoginController = asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
     const user = req.user;
     const tokens = getBothToken(user!)
@@ -105,5 +122,6 @@ export const authController ={
     authLogoutController,
     authChangePasswordController,
     authSetPasswordController,
+    authForgotPasswordController,
     googleAuthLoginController,
 }

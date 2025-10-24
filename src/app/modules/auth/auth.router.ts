@@ -18,6 +18,7 @@ authController.authChangePasswordController);
 router.post('/set-password',authentication(...Object.values(Role)),
 authController.authSetPasswordController);
 
+router.post('/forgot-password',authController.authForgotPasswordController);
 // router.post('/reset-password',authentication(...Object.values(Role)) ,authController.authResetPasswordController);
 
 
