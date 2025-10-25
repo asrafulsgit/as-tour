@@ -47,6 +47,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^7.0.10",
     "passport-google-oauth20": "^2.0.0",
+    "redis": "^5.9.0",
     "uuid": "^13.0.0",
     "zod": "^4.0.10"
   }

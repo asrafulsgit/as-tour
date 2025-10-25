@@ -2,6 +2,7 @@ import {Server} from 'http';
 import mongoose from 'mongoose';
 import app from './app';
 import { envs } from './app/config/env';
+import { redisConnection } from './app/config/redis';
 
 let server : Server ;
 
@@ -9,6 +10,7 @@ let server : Server ;
 
 const initServer = async()=>{
     try {
+        await redisConnection();
         await mongoose.connect(envs.MONGODB_URL);
         
         server = app.listen(envs.PORT,()=>{

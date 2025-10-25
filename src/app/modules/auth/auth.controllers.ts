@@ -116,7 +116,6 @@ const authResetPasswordController = asyncHandler(async(req : Request, res : Resp
     })
 });
 
-
 const googleAuthLoginController = asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
     const user = req.user;
     const tokens = getBothToken(user!)
