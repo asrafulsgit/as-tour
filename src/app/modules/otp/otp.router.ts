@@ -5,6 +5,6 @@ import { OTPControllers } from "./otp.controllers";
 const router = Router();
 
 router.post('/send',OTPControllers.sendOTPController);
-// router.post('/verify',authController.getAccessTokenController);
+router.post('/verify',OTPControllers.verifyOTPController);
 
 export const otpRouter = router;

@@ -47,8 +47,38 @@ const OTPSendService =async(email : string)=>{
 
 }
 
+const OPTVerifyService = async(email : string,otp : string)=>{
+    
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new AppError(httpStatusCode.NOT_FOUND, "User not found")
+    }
+
+    if (user.isVerified) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "You are already verified")
+    }
+
+    const redisKey = `otp:${email}`
+
+    const savedOtp = await redisClient.get(redisKey);
+
+    if (!savedOtp) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "Invalid OTP");
+    }
+
+    if (savedOtp !== otp) {
+        throw new AppError(httpStatusCode.BAD_REQUEST, "Invalid OTP");
+    }
+
+    await Promise.all([
+        User.findOneAndUpdate({email},{isVerified : true},{runValidators : true}),
+        redisClient.del([redisKey])
+    ]);
+}
 
 
 export const OTPServices = {
-    OTPSendService
+    OTPSendService,
+    OPTVerifyService
 }

@@ -6,7 +6,8 @@ import { OTPServices } from "./otp.services";
 
 const sendOTPController = asyncHandler(async(req : Request, 
     res : Response,next : NextFunction)=>{
-    await OTPServices.OTPSendService(req.body);
+    const {email} = req.body;
+    await OTPServices.OTPSendService(email);
     sendResponse(res,{
         statusCode : httpStatusCode.OK,
         success : true,
@@ -15,6 +16,22 @@ const sendOTPController = asyncHandler(async(req : Request,
     });
 });
 
+const verifyOTPController = asyncHandler(async(req : Request, 
+    res : Response,next : NextFunction)=>{
+    const {email,otp} = req.body;
+    await OTPServices.OPTVerifyService(email,otp);
+    sendResponse(res,{
+        statusCode : httpStatusCode.OK,
+        success : true,
+        message : 'OTP verification successfull',
+        data : null
+    });
+});
+
+
+
+
 export const OTPControllers = {
-    sendOTPController
+    sendOTPController,
+    verifyOTPController
 }
