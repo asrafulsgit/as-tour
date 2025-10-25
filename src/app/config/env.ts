@@ -35,6 +35,10 @@ SMTP_USER : string;
 SMTP_HOST : string;
 SMTP_FROM : string;
 SMTP_PORT : string;
+REDIS_PASS : string;
+REDIS_USERNAME : string;
+REDIS_HOST : string;
+REDIS_PORT : string;
 }
 
 const envsLoading = (): EnvsConfig => {
@@ -70,6 +74,10 @@ const envsLoading = (): EnvsConfig => {
 "SMTP_HOST",
 "SMTP_FROM",
 "SMTP_PORT",
+"REDIS_PASS",
+"REDIS_USERNAME",
+"REDIS_HOST",
+"REDIS_PORT",
   ];
 
   properties.forEach((key) => {
@@ -113,6 +121,10 @@ const envsLoading = (): EnvsConfig => {
     SMTP_HOST : process.env.SMTP_HOST as string,
     SMTP_FROM : process.env.SMTP_FROM as string,
     SMTP_PORT : process.env.SMTP_PORT as string,
+    REDIS_PASS : process.env.REDIS_PASS as string,
+REDIS_USERNAME : process.env.REDIS_USERNAME as string,
+REDIS_HOST : process.env.REDIS_HOST as string,
+REDIS_PORT : process.env.REDIS_PORT as string,
   };
 };
 

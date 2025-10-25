@@ -34,7 +34,6 @@ process.on("unhandledRejection",(err)=>{
     process.exit(1);
 })
 
-
 process.on("uncaughtException",(err)=>{
     console.log('uncaughtException', err);
 
