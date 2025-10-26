@@ -3,6 +3,7 @@ import { envs } from "../../config/env";
 import { ISSlCommerz } from "./ssl.interface";
 import AppError from "../../errorHelpers/appError";
 import httpStatusCode from "http-status-codes";
+import { Payment } from "../payment/payment.model";
 
 
 const sslCommerzInitializeService = async(payload : ISSlCommerz)=>{
@@ -52,8 +53,26 @@ const sslCommerzInitializeService = async(payload : ISSlCommerz)=>{
         throw new AppError(httpStatusCode.BAD_REQUEST,error.message)
     }
 };
+const validatePaymentService = async (payload: any) => {
+    try {
+        const response = await axios({
+            method: "GET",
+            url: `${envs.SSL_VALIDATION_API}?val_id=${payload.val_id}&store_id=${envs.SSL_STORE_ID}&store_passwd=${envs.SSL_STORE_PASS}`
+        })
 
+        console.log("sslcomeerz validate api response", response.data);
+
+        await Payment.updateOne(
+            { transactionId: payload.tran_id },
+            { paymentGatewayData: response.data },
+            { runValidators: true })
+    } catch (error: any) {
+        console.log(error);
+        throw new AppError(401, `Payment Validation Error, ${error.message}`)
+    }
+}
 
 export const sslCommerzServices = {
-    sslCommerzInitializeService
+    sslCommerzInitializeService,
+    validatePaymentService
 }

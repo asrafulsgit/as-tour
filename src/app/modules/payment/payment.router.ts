@@ -20,9 +20,11 @@ router.post('/fail',paymentControllers.paymentFailController);
 // payment cancel  
 router.post('/cancel',paymentControllers.paymentCancelController);
 
-
+// payment invoice download
 router.get('/invoice/:paymentId',authentication(Role.USER),paymentControllers.paymentInvoiceController);
-   
+
+// payment validation
+router.post("/validate-payment",paymentControllers.validatePaymentController);
 
 export const paymentRouter = router;
 

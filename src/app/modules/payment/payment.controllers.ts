@@ -5,6 +5,7 @@ import  httpStatusCode  from "http-status-codes";
 import { paymentServices } from "./payment.services";
 import { envs } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
+import { sslCommerzServices } from "../sslCommerz/ssl.services";
 
 
 // re payment controller 
@@ -68,11 +69,25 @@ const paymentInvoiceController = asyncHandler(async (req: Request,
      
 });
 
+// payment validation controller
+const validatePaymentController = asyncHandler(async (req: Request, res: Response) => {
+        
+        await sslCommerzServices.validatePaymentService(req.body)
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Payment Validated Successfully",
+            data: null,
+        });
+    }
+);
+
 
 export const paymentControllers ={
     paymentSuccessController,
     paymentFailController,
     paymentCancelController,
     initPaymentController,
-    paymentInvoiceController
+    paymentInvoiceController,
+    validatePaymentController
 }
