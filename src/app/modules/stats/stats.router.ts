@@ -10,6 +10,7 @@ router.get(
     authentication(Role.ADMIN, Role.SUPER_ADMIN),
     statsControllers.getBookingStatsController
 );
+
 router.get(
     "/payment",
     authentication(Role.ADMIN, Role.SUPER_ADMIN),

@@ -5,7 +5,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import { statsServices } from "./stats.services";
 
 const getBookingStatsController = asyncHandler(async(req: Request, res: Response) => {
-    const stats = await statsServices.getUserStatsService();
+    const stats = await statsServices.getBookingStatsService();
     sendResponse(res, {
         statusCode: 200,
         success: true,
