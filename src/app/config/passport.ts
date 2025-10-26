@@ -9,7 +9,7 @@ passport.use(
     new GoogleStrategy ({
         clientID : envs.GOOGLE_CLIENT_ID,
         clientSecret : envs.GOOGLE_CLIENT_SECRET,
-        callbackURL : `${envs.GOOGLE_CALLBACK_URL}`
+        callbackURL : `${envs.BACKEND_URL}${envs.GOOGLE_CALLBACK_URL}`
     },async(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback)=>{
         try {
             const email = profile.emails?.[0].value;
