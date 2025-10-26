@@ -1,45 +1,46 @@
 
 import { Request, Response } from "express";
-import { asyncHandler } from "../utils/asyncHandler";
-import { sendResponse } from "../utils/sendResponse";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { sendResponse } from "../../utils/sendResponse";
+import { statsServices } from "./stats.services";
 
 const getBookingStatsController = asyncHandler(async(req: Request, res: Response) => {
-    // const stats = await StatsService.getBookingStats();
+    const stats = await statsServices.getUserStatsService();
     sendResponse(res, {
         statusCode: 200,
         success: true,
         message: "Booking stats fetched successfully",
-        data: null,
+        data: stats,
     });
 });
 
 const getPaymentStatsController = asyncHandler(async (req: Request, res: Response) => {
-    // const stats = await StatsService.getPaymentStats();
+    const stats = await statsServices.getPaymentStatsService();
     sendResponse(res, {
         statusCode: 200,
         success: true,
         message: "Payment stats fetched successfully",
-        data: null,
+        data: stats,
     });
 });
 
 const getUserStatsController = asyncHandler(async (req: Request, res: Response) => {
-    // const stats = await StatsService.getUserStats();
+    const stats = await statsServices.getUserStatsService();
     sendResponse(res, {
         statusCode: 200,
         success: true,
         message: "User stats fetched successfully",
-        data: null,
+        data: stats,
     });
 });
 
 const getTourStatsController = asyncHandler(async (req: Request, res: Response) => {
-    // const stats = await StatsService.getTourStats();
+    const stats = await statsServices.getTourStatsService();
     sendResponse(res, {
         statusCode: 200,
         success: true,
         message: "Tour stats fetched successfully",
-        data: null,
+        data: stats,
     });
 });
 
