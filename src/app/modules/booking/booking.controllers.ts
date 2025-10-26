@@ -4,6 +4,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import httpStatusCode from 'http-status-codes';
 import { bookingServices } from "./booking.services";
 import { JwtPayload } from "jsonwebtoken";
+import { BOOKING_STATUS } from "./booking.interface";
 
 // create booking controller
 const createBookingController = asyncHandler(async (req: Request, res: Response) => {
@@ -19,57 +20,74 @@ const createBookingController = asyncHandler(async (req: Request, res: Response)
     });
 });
 
-// get all booking controller
-const getAllBookingController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-    // const results = await tourServices.getAllToursService(req.query as Record<string,string>);
+// get my bookings
+const getUserBookingsController = asyncHandler(
+    async (req: Request, res: Response) => {
+         
+        const user = req.user as JwtPayload;
+        const bookings = await bookingServices.getUserBookingsService(user.id as string);
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Bookings retrieved successfully",
+            data: bookings,
+        });
+    }
+);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tours retrived',
-        data : 'results.data'
-    });
-});
+// get single booking
+const getSingleBookingController = asyncHandler(
+    async (req: Request, res: Response) => {
+        const bookingId = req.params.bookingId;
+        const booking = await bookingServices.getBookingByIdService(bookingId as string);
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Booking retrieved successfully",
+            data: booking,
+        });
+    }
+);
 
-// get signle booking controller
-const getSingleBookingController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-    const tourId = req.params.id;
-    // const results = await tourServices.getSingleTourService(tourId);
+// get all bookings 
+const getAllBookingsController = asyncHandler(
+    async (req: Request, res: Response) => {
+        const query = req.query;
+        const results = await bookingServices.getAllBookingsService(query as Record<string,string>);
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Bookings retrieved successfully",
+            data: results.data,
+            meta : {
+                total : results.meta.totalsBookings
+            }
+        });
+    }
+);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tour retrived',
-        data : 'results'
-    });
-});
+// update booking
+const updateBookingStatusController = asyncHandler(
+    async (req: Request, res: Response) => {
+        const bookingId = req.params.bookingId;
+        const status = req.body.status;
+        const updated = await bookingServices.updateBookingStatusService(
+            bookingId as string, status as BOOKING_STATUS
+        );
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Booking Status Updated Successfully",
+            data: updated,
+        });
+    }
+);
 
-// update booking controller
-const updateBookingController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-    const tourId = req.params.id;
-    
-    // const results = await tourServices.updateTourService(tourId,req.body);
-
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tour updated',
-        data : 'results'
-    });
-});
-
-// delete booking controller
-const deleteBookingController = asyncHandler(async (req: Request, res: Response) => {
-    const tourId = req.params.id;
-    // await tourServices.deleteTourService(tourId);
-    sendResponse(res, {
-        statusCode: httpStatusCode.OK,
-        success: true,
-        message: "tour deleted",
-        data: null
-    });
-});
 
 export const bookingControllers = {
-    createBookingController
+    createBookingController,
+    getUserBookingsController,
+getSingleBookingController,
+getAllBookingsController,
+updateBookingStatusController
 }

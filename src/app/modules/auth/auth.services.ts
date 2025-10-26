@@ -5,9 +5,7 @@ import httpStatusCode from 'http-status-codes';
 import bcrypt from 'bcryptjs';
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { envs } from "../../config/env";
-import { generateToken } from "../../utils/generateToken";
 import { createAccessTokenFromRefreshToken, getBothToken } from "../../utils/getBothToken";
-import { decodedToken } from "../../utils/decodedToken";
 import { sendEmail } from "../../utils/sendMail";
 
 const authLoginService = async(payload : Partial<IUser>)=>{

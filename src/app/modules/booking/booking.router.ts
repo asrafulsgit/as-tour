@@ -9,17 +9,32 @@ const router = Router();
 // create booking 
 router.post('/create',authentication(Role.USER), bookingControllers.createBookingController);
 
-// // get all tour 
-// router.get('/all-tours',tourControllers.getAllToursController);
+// get all bookings 
+router.get("/all",
+    authentication(Role.ADMIN, Role.SUPER_ADMIN),
+    bookingControllers.getAllBookingsController
+);
 
-// // get single tour
-// router.get('/:id',tourControllers.getSingleTourController);
+// get my bookings 
+router.get("/my-bookings",
+    authentication(...Object.values(Role)),
+    bookingControllers.getUserBookingsController
+);
 
-// //update tour
-// router.patch('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.updateTourController);
+// get single booking
+router.get("/:bookingId",
+    authentication(...Object.values(Role)), 
+    bookingControllers.getSingleBookingController
+); 
 
-// //delete tour
-// router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),tourControllers.deletetourController);
+// update booking
+router.patch("/:bookingId/status",
+    authentication(Role.USER,Role.ADMIN,Role.SUPER_ADMIN),
+    bookingControllers.updateBookingStatusController
+);
+
+
+
 
 
 export const bookingRouter = router;

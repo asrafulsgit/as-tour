@@ -9,6 +9,8 @@ import { PAYMENT_STATUS } from "../payment/payment.interface";
 import { Tour } from "../tour/tour.model";
 import { ISSlCommerz } from "../sslCommerz/ssl.interface";
 import { sslCommerzServices } from "../sslCommerz/ssl.services";
+import { QueryBuilder } from "../../utils/queryBuilder";
+import httpStatusCode from 'http-status-codes';
 
 
 const  generateTransactionId = () => {
@@ -89,57 +91,63 @@ const createBookingService =async(payload : Partial<IBooking>,userId : string)=>
     }
 }
 
-// // get all tours  service
-// const getAllToursService =async(query : Record<string,string>)=>{
+// get all bookings  service
+const getAllBookingsService =async(query : Record<string,string>)=>{
      
-//      const queryBuilder = new QueryBuilder(Tour.find(), query)
+    //  const queryBuilder = new QueryBuilder(Booking.find(), query);
 
-//     const tours = await queryBuilder
-//         .search()
-//         .filter()
-//         .sort()
-//         .paginate();
+    // const bookings = await queryBuilder
+    //     .search()
+    //     .filter()
+    //     .sort()
+    //     .paginate();
  
     
-//     const [data,meta]= await Promise.all([
-//         tours.build(),
-//         tours.getMeta()
-//     ])
+    // const [data,meta]= await Promise.all([
+    //     bookings.build(),
+    //     bookings.getMeta()
+    // ]);
+
+   const data = await Booking.find({});
+   const totalsBookings = await Booking.countDocuments();
+    return {
+         data,
+         meta : {totalsBookings}
+    };
+
+}
+
+// get my bookings  service
+const getUserBookingsService =async(userId : string)=>{
+    const bookings = await Booking.find({user : userId});
+    return bookings 
+}
+
+// get single booking service
+const getBookingByIdService =async(bookingId : string)=>{
+    const booking = await Booking.findById(bookingId).populate('user',"name email picture").populate("tour","title slug")
+    return booking;
+}
+
+// update booking service
+const updateBookingStatusService =async(bookingId : string,status : BOOKING_STATUS)=>{
+    const booking = await Booking.findById(bookingId);
+    if(!booking){
+        throw new AppError(httpStatusCode.NOT_FOUND,"Booking not found");
+    }
+
+    const updateTour = await Booking.findByIdAndUpdate(bookingId,
+        {status},{new : true, runValidators : true});
     
-//     return {
-//          data,
-//          meta 
-//     };
+    return updateTour;
+}
 
-// }
-
-// // get single tour service
-// const getSingleTourService =async(tourId : string)=>{
-//     const tour = await Tour.findById(tourId)
-//     .populate('tourType',"name")
-//     .populate('division',"name");
-//     return tour;
-// }
-
-// // update tour service
-// const updateTourService =async(tourId : string, payload : Partial<ITour>)=>{
-//     const tour = await Tour.findById(tourId);
-//     if(!tour){
-//         throw new AppError(httpStatusCode.NOT_FOUND,"Tour not found");
-//     }
-
-//     const updateTour = await Tour.findByIdAndUpdate(tourId,
-//         payload,{new : true, runValidators : true});
-    
-//     return updateTour;
-// }
-
-// // delete tour service
-// const deleteTourService =async(tourId : string)=>{
-//      await Tour.findByIdAndDelete(tourId);
-// }
 
 
 export const bookingServices ={
-    createBookingService
+    createBookingService,
+    getAllBookingsService,
+    getUserBookingsService,
+    getBookingByIdService,
+    updateBookingStatusService
 }
