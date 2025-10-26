@@ -1,8 +1,6 @@
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { cloudinaryUpload } from "./cloudinary";
-import { v4 as uuidv4 } from 'uuid';
 import multer from "multer";
-
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinaryUpload,
@@ -10,7 +8,7 @@ const storage = new CloudinaryStorage({
     public_id: (req, file) => {
         const fileName = file.originalname.split(".").slice(0,-1);
         
-            const uniqueFileName = uuidv4() + "-" + Date.now() + 
+            const uniqueFileName = `${Date.now()}_${Math.floor(Math.random() * 1000)}` + "-" + Date.now() + 
             "-" + fileName; 
 
             return uniqueFileName
