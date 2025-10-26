@@ -71,7 +71,7 @@ const updateDivisionController = asyncHandler(async(req : Request, res : Respons
 // delete division controller
 const deleteDivisionController = asyncHandler(async (req: Request, res: Response) => {
      const divisionId = req.params.id;
-    const result = await divisionServices.deleteDivisionService(divisionId);
+      await divisionServices.deleteDivisionService(divisionId);
     sendResponse(res, {
         statusCode: httpStatusCode.OK,
         success: true,

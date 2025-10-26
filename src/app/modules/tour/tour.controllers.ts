@@ -3,7 +3,6 @@ import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatusCode from 'http-status-codes'; 
 import { tourServices, tourTypeServices } from "./tour.services";
-import { Tour } from "./tour.model";
 import { ITour } from "./tour.interface";
 
 // create tourType controller

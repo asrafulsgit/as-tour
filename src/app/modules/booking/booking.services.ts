@@ -1,5 +1,4 @@
 import AppError from "../../errorHelpers/appError";
-import { IUser } from "../user/user.interface";
 import { User } from "../user/user.model";
 import { BOOKING_STATUS, IBooking } from "./booking.interface";
 import httpStatus from 'http-status-codes';
@@ -9,7 +8,6 @@ import { PAYMENT_STATUS } from "../payment/payment.interface";
 import { Tour } from "../tour/tour.model";
 import { ISSlCommerz } from "../sslCommerz/ssl.interface";
 import { sslCommerzServices } from "../sslCommerz/ssl.services";
-import { QueryBuilder } from "../../utils/queryBuilder";
 import httpStatusCode from 'http-status-codes';
 
 

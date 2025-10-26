@@ -3,7 +3,6 @@ import httpStatusCode from 'http-status-codes';
 import { userServices } from "./user.services";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
-import { decodedToken } from "../../utils/decodedToken";
 import { JwtPayload } from "jsonwebtoken";
 
 
