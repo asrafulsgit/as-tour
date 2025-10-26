@@ -4,6 +4,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import  httpStatusCode  from "http-status-codes";
 import { paymentServices } from "./payment.services";
 import { envs } from "../../config/env";
+import { JwtPayload } from "jsonwebtoken";
 
 
 // re payment controller 
@@ -52,10 +53,26 @@ const paymentCancelController = asyncHandler(async (req: Request,
     }
 });
 
+// payment invoice controller
+const paymentInvoiceController = asyncHandler(async (req: Request, 
+    res: Response) => { 
+   const paymentId = req.params.paymentId;
+   const user = req.user as JwtPayload;
+   const result = await paymentServices.getInvoiceService(paymentId,user.id)
+    sendResponse(res, {
+        statusCode: httpStatusCode.OK,
+        success: true,
+        message: "Payment invoice retrived",
+        data: result,
+    });
+     
+});
+
 
 export const paymentControllers ={
     paymentSuccessController,
     paymentFailController,
     paymentCancelController,
-    initPaymentController
+    initPaymentController,
+    paymentInvoiceController
 }
