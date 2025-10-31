@@ -18,15 +18,12 @@ const userCreateService =async(payload : Partial<IUser>)=>{
     const hashPassword = await bcrypt.hash(password as string,Number(envs.BCRYPT_SALT));
 
     const authProvider : IAuthProvider = {provider : "Creadentials", providerId : email as string};
-    const user = await User.create({
+    await User.create({
             email,
             password : hashPassword,
             auths : [authProvider] ,
             ...rest
         });
-
-    return user;
-
 }
 
 const userUpdateService = async(userId : string, payload : Partial<IUser>,decodedToken : JwtPayload)=>{

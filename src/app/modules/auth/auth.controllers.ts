@@ -17,7 +17,7 @@ const authLoginController = asyncHandler(async(req : Request, res : Response,nex
         statusCode : httpStatusCode.OK,
         success : true,
         message : 'User logged in successful',
-        data : user
+        data : user.user
     });
 });
 

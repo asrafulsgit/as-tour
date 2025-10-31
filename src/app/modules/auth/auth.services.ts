@@ -27,7 +27,7 @@ const authLoginService = async(payload : Partial<IUser>)=>{
             !isUserExist.isVerified
           ) {
             throw new AppError(
-              httpStatusCode.BAD_REQUEST,
+              httpStatusCode.UNAUTHORIZED,
               `User is not verified`
             );
           }

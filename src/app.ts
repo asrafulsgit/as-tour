@@ -27,14 +27,6 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-app.use('/',(req:Request,res : Response)=>{
-    res.status(200).json({
-        success : true,
-        message : "server is working...",
-    })
-})
-
 app.use('/api/v1',router);
 
 
