@@ -22,6 +22,18 @@ The TourMate backend provides a secure and scalable RESTful API that connects wi
 
 ---
 
+## 🧰 Tech Stack
+
+- **Node.js**
+- **Express.js**
+- **TypeScript**
+- **MongoDB (Mongoose)**
+- **SSLCommerz**
+- **Passport**
+- **JWT**
+
+---
+
 ## 🚀 Setup Guide
 
 ### 1. Clone the Repository
@@ -108,7 +120,7 @@ npm run dev
 
 ## 🔗 API Endpoints
 
-### ▶️ Auth
+### Auth
 
 | Method | Endpoint                     | Description               |
 | ------ | ---------------------------- | ------------------------- |
@@ -124,7 +136,7 @@ npm run dev
 
 ---
 
-### 👤 Users
+### Users
 
 | Method | Endpoint                | Description                   |
 | ------ | ----------------------- | ----------------------------- |
