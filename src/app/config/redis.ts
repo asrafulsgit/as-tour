@@ -4,7 +4,7 @@ import { envs } from './env';
 export const redisClient = createClient({
     username: envs.REDIS_USERNAME,
     password: envs.REDIS_PASS,
-    socket: {
+    socket: { 
         host: envs.REDIS_HOST,
         port: Number(envs.REDIS_PORT)
     }
