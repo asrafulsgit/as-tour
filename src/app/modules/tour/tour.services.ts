@@ -87,7 +87,7 @@ const getAllToursService =async(query : Record<string,string>)=>{
      const queryBuilder = new QueryBuilder(Tour.find(), query)
 
     const tours = await queryBuilder
-        .search()
+        .search([])
         .filter()
         .sort()
         .paginate();
