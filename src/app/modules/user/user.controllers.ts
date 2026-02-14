@@ -55,7 +55,6 @@ const getUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as JwtPayload;
     const userData = await userServices.getUserService(user);
-
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
       success: true,
@@ -69,5 +68,5 @@ export const userControllers = {
   createUser,
   updateUser,
   getAllUsers,
-  getUser
+  getUser,
 };

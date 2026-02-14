@@ -114,11 +114,9 @@ const authForgotPasswordController = asyncHandler(
   },
 );
 const authResetPasswordController = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const decodedToken = req.user;
+  async (req: Request, res: Response, next: NextFunction) => { 
     await authServices.resetPasswordService(
-      req.body,
-      decodedToken as JwtPayload,
+      req.body
     );
 
     sendResponse(res, {

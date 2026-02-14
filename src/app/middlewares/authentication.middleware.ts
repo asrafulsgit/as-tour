@@ -5,6 +5,7 @@ import httpStatusCode from "http-status-codes";
 import { envs } from "../config/env";
 import { User } from "../modules/user/user.model";
 import { IsActive } from "../modules/user/user.interface";
+import { CUSTOM_ERROR } from "../utils/constants";
 
 export const authentication =
   (...roles: string[]) =>
@@ -13,7 +14,11 @@ export const authentication =
       const token = req.cookies.accessToken || req.headers.authorization;
 
       if (!token) {
-        throw new AppError(httpStatusCode.NOT_FOUND, "Token not found.");
+        throw new AppError(
+          httpStatusCode.NOT_FOUND,
+          "Token not found.",
+          CUSTOM_ERROR.TOKEN_NOT_FOUND,
+        );
       }
       const verified = jwt.verify(
         token,
@@ -23,11 +28,19 @@ export const authentication =
       const isUserExist = await User.findById(verified.id);
 
       if (!isUserExist) {
-        throw new AppError(httpStatusCode.NOT_FOUND, "User not found");
+        throw new AppError(
+          httpStatusCode.NOT_FOUND,
+          "User not found",
+          CUSTOM_ERROR.USER_NOT_FOUND,
+        );
       }
 
       if (!isUserExist.isVerified) {
-        throw new AppError(httpStatusCode.BAD_REQUEST, `User is not verified`);
+        throw new AppError(
+          httpStatusCode.BAD_REQUEST,
+          `User is not verified`,
+          CUSTOM_ERROR.USER_NOT_VERIFIED,
+        );
       }
       if (
         isUserExist.isActive === IsActive.BLOCKED ||
@@ -36,17 +49,25 @@ export const authentication =
         throw new AppError(
           httpStatusCode.BAD_REQUEST,
           `User is ${isUserExist.isActive}`,
+          isUserExist.isActive === IsActive.BLOCKED
+            ? CUSTOM_ERROR.USER_BLOCKED
+            : CUSTOM_ERROR.USER_INACTIVE,
         );
       }
 
       if (isUserExist.isDeleted) {
-        throw new AppError(httpStatusCode.BAD_REQUEST, `User is deleted`);
+        throw new AppError(
+          httpStatusCode.BAD_REQUEST,
+          `User is deleted`,
+          CUSTOM_ERROR.USER_DELETED,
+        );
       }
 
       if (!roles.includes((verified as JwtPayload).role)) {
         throw new AppError(
           httpStatusCode.FORBIDDEN,
           "You can not view this route!",
+          CUSTOM_ERROR.ROLE_FORBIDDEN,
         );
       }
       req.user = verified;
