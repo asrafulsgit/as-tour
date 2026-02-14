@@ -5,7 +5,7 @@ const tourTypeSchema = new Schema<ITourType>(
   {
     name: { type: String, required: true, unique: true },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 export const TourType = model<ITourType>("TourType", tourTypeSchema);
@@ -35,46 +35,53 @@ const tourSchema = new Schema<ITour>(
       ref: "TourType",
       required: true,
     },
+    guide: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    reviews: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
   },
   {
     timestamps: true,
     versionKey: false,
-  }
+  },
 );
 
+tourSchema.pre("save", async function (next) {
+  if (this.isModified("title")) {
+    let slug = this.title.toLowerCase().split(" ").join("-");
 
-tourSchema.pre("save", async function(next){
-     
-    if(this.isModified("title")){
-        let slug = this.title.toLowerCase().split(" ").join("-");
-      
-        let count = 0;
-        while(await Tour.exists({slug})){
-            slug = `${slug}-${count++}`
-        }
-        
-        this.slug = slug;
+    let count = 0;
+    while (await Tour.exists({ slug })) {
+      slug = `${slug}-${count++}`;
     }
 
-    next();
+    this.slug = slug;
+  }
+
+  next();
 });
 
-tourSchema.pre("findOneAndUpdate", async function(next){
-    const tour = this.getUpdate() as Partial<ITour>;
-    if(tour.title){
-        let slug = tour.title.toLowerCase().split(" ").join("-");
+tourSchema.pre("findOneAndUpdate", async function (next) {
+  const tour = this.getUpdate() as Partial<ITour>;
+  if (tour.title) {
+    let slug = tour.title.toLowerCase().split(" ").join("-");
 
-        let count = 0;
-        while(await Tour.exists({slug})){
-            slug = `${slug}-${count++}`
-        }
-        
-        tour.slug = slug;
+    let count = 0;
+    while (await Tour.exists({ slug })) {
+      slug = `${slug}-${count++}`;
     }
 
-    this.setUpdate(tour);
+    tour.slug = slug;
+  }
 
-    next();
+  this.setUpdate(tour);
+
+  next();
 });
 
 export const Tour = model<ITour>("Tour", tourSchema);
