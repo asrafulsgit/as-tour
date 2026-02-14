@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { authController } from "./auth.controllers";
 import { authentication } from "../../middlewares/authentication.middleware";
-import { Role } from "../user/user.interface";
+import { IUser, Role } from "../user/user.interface";
 import passport from "passport"; 
 import { envs } from "../../config/env";
 
@@ -26,8 +26,33 @@ router.get('/google',(req:Request,res:Response,next:NextFunction)=>{
     passport.authenticate("google",{scope : ['profile','email']})(req,res,next)
 });
 
-router.get('/google/callback',passport.authenticate("google",
-    {failureRedirect : `${envs.FRONTEND_URL}/google-auth/failed`}),
-    authController.googleAuthLoginController)
+router.get("/google/callback", (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate(
+    "google",
+    (
+      err: any,
+      user: IUser | false,
+      info: { message?: string }
+    ) => {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        const message = info?.message || "Google authentication failed";
+        return res.redirect(
+          `${envs.FRONTEND_URL}/auth/google/failed?message=${encodeURIComponent(message)}`
+        );
+      }
+
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+
+        return authController.googleAuthLoginController(req, res, next);
+      });
+    }
+  )(req, res, next);
+});
 
 export const authRouter = router;
+ 

@@ -109,9 +109,9 @@ const forgotPasswordService = async (email: string) => {
     if (!isUserExist) {
         throw new AppError(httpStatusCode.BAD_REQUEST, "User does not exist")
     }
-    if (!isUserExist.isVerified) {
-        throw new AppError(httpStatusCode.BAD_REQUEST, "User is not verified")
-    }
+    // if (!isUserExist.isVerified) {
+    //     throw new AppError(httpStatusCode.BAD_REQUEST, "User is not verified")
+    // }
     if (isUserExist.isActive === IsActive.BLOCKED || isUserExist.isActive === IsActive.INACTIVE) {
         throw new AppError(httpStatusCode.BAD_REQUEST, `User is ${isUserExist.isActive}`)
     }
