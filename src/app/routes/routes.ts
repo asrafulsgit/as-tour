@@ -8,52 +8,53 @@ import { paymentRouter } from "../modules/payment/payment.router";
 import { otpRouter } from "../modules/otp/otp.router";
 import { statsRouter } from "../modules/stats/stats.router";
 import { guideRouter } from "../modules/guide/guide.router";
+import { reviewRouter } from "../modules/review/review.router";
 
-export const router  = Router();
-
+export const router = Router();
 
 const routes = [
-    {
-        path : '/user',
-        route : userRouter
-    },
-    {
-        path : '/auth',
-        route : authRouter
-    },
-    {
-        path : '/division',
-        route : divisionRouter
-    },
-    {
-        path : '/tour',
-        route : tourRouter
-    },
-    {
-        path : '/booking',
-        route : bookingRouter
-    },
-    {
-        path : '/payment',
-        route : paymentRouter
-    },
-    {
-        path : '/guide',
-        route : guideRouter
-    },
-    {
-        path : '/otp',
-        route : otpRouter
-    },
-    {
-        path : '/stats',
-        route : statsRouter
-    }
-]
+  {
+    path: "/user",
+    route: userRouter,
+  },
+  {
+    path: "/auth",
+    route: authRouter,
+  },
+  {
+    path: "/division",
+    route: divisionRouter,
+  },
+  {
+    path: "/tour",
+    route: tourRouter,
+  },
+  {
+    path: "/booking",
+    route: bookingRouter,
+  },
+  {
+    path: "/payment",
+    route: paymentRouter,
+  },
+  {
+    path: "/guide",
+    route: guideRouter,
+  },
+  {
+    path: "/otp",
+    route: otpRouter,
+  },
+  {
+    path: "/stats",
+    route: statsRouter,
+  },
+  {
+    path: "/review",
+    route: reviewRouter,
+  },
+];
 
-
-routes.forEach((route)=>{
-    router.use(route.path, route.route);
-})
-
-
+routes.forEach((route) => {
+  router.use(route.path, route.route);
+});

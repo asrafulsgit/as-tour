@@ -4,7 +4,7 @@ import { GuideApplicationStatus, IApplyGuide } from "./guide.interface";
 const applyGuideShcema = new Schema<Partial<IApplyGuide>>(
   {
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, "User ID is required"],
       ref: "User",
     },
@@ -13,7 +13,7 @@ const applyGuideShcema = new Schema<Partial<IApplyGuide>>(
       required: [true, "NID Photo is required"],
     },
     divisionId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, "Division ID is required"],
       ref: "Division",
     },

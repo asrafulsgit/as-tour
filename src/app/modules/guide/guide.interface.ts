@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 
 export enum GuideApplicationStatus {
     APPROVED = 'APPROVED',
@@ -5,8 +6,8 @@ export enum GuideApplicationStatus {
     PENDING = 'PENDING'
 }
 export interface IApplyGuide {
-    userId? : string;
-    divisionId : string;
+    userId? : Types.ObjectId;
+    divisionId : Types.ObjectId;
     nidPhoto : string;
     status? : GuideApplicationStatus;
 }
