@@ -8,6 +8,6 @@ export enum GuideApplicationStatus {
 export interface IApplyGuide {
     userId? : Types.ObjectId;
     divisionId : Types.ObjectId;
-    nidPhoto : string;
+    nidPhotos : string[];
     status? : GuideApplicationStatus;
 }

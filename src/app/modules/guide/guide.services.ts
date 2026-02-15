@@ -14,20 +14,23 @@ const applyGuideService = async (
 ) => {
   const isExistApplication = await GuideApplication.findOne({ userId });
 
-  if (
-    isExistApplication?.status === GuideApplicationStatus.PENDING ||
-    isExistApplication?.status === GuideApplicationStatus.APPROVED
-  ) {
+  if (isExistApplication?.status === GuideApplicationStatus.PENDING) {
     throw new AppError(
       httpStatusCode.BAD_REQUEST,
       "An existing application is already in progress.",
+    );
+  }
+  if (isExistApplication?.status === GuideApplicationStatus.APPROVED) {
+    throw new AppError(
+      httpStatusCode.BAD_REQUEST,
+      "Your Application is approved.",
     );
   }
 
   const newDpplication = await GuideApplication.create({
     userId,
     divisionId: payload.divisionId,
-    nidPhoto: payload.nidPhoto,
+    nidPhotos: payload.nidPhotos,
   });
   return newDpplication;
 };
@@ -112,7 +115,10 @@ const getAllGuidesService = async (query: Record<string, string>) => {
 
 // get single guide
 const getSingleGuideService = async (id: string) => {
-  const guide = await GuideApplication.findById(id).populate("userId","name email picture address");
+  const guide = await GuideApplication.findById(id).populate(
+    "userId",
+    "name email picture address",
+  );
   return guide;
 };
 
@@ -121,5 +127,5 @@ export const guideServices = {
   approveGuideService,
   rejectGuideService,
   getAllGuidesService,
-  getSingleGuideService
+  getSingleGuideService,
 };

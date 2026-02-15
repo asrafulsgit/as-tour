@@ -11,7 +11,7 @@ const applyGuideController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const payload: IApplyGuide = {
       ...req.body,
-      nidPhoto: req.file?.path,
+      nidPhotos : (req.files as Express.Multer.File[])?.map(file => file.path),
     };
     const user = req.user as JwtPayload;
 
@@ -29,7 +29,7 @@ const applyGuideController = asyncHandler(
   },
 );
 
-// approve guide application 
+// approve guide application
 const approveGuideApplicationController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id as string;
@@ -39,11 +39,11 @@ const approveGuideApplicationController = asyncHandler(
       statusCode: httpStatusCode.OK,
       success: true,
       message: "Application approved",
-      data: null
+      data: null,
     });
   },
 );
-// reject guide application 
+// reject guide application
 const rejectGuideApplicationController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id as string;
@@ -53,7 +53,7 @@ const rejectGuideApplicationController = asyncHandler(
       statusCode: httpStatusCode.OK,
       success: true,
       message: "Application rejected",
-      data: null
+      data: null,
     });
   },
 );
@@ -61,32 +61,36 @@ const rejectGuideApplicationController = asyncHandler(
 // get all guide
 const getGuidesController = asyncHandler(
   async (req: Request, res: Response) => {
-    const query = req.query
-    const guides = await guideServices.getAllGuidesService(query as Record<string, string>);
+    const query = req.query;
+    const guides = await guideServices.getAllGuidesService(
+      query as Record<string, string>,
+    );
     sendResponse(res, {
       statusCode: 200,
       success: true,
       message: "Guides retrieved successfully",
-      data: guides 
+      data: guides,
     });
   },
 );
-// get signle guide 
-const getSingleGuideController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-     const id = req.params.id as string;
+// get signle guide
+const getSingleGuideController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as string;
     const results = await guideServices.getSingleGuideService(id);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'Guide retrived',
-        data : results
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Guide retrived",
+      data: results,
     });
-});
+  },
+);
 export const guideControllers = {
   applyGuideController,
   approveGuideApplicationController,
   rejectGuideApplicationController,
   getGuidesController,
-  getSingleGuideController
+  getSingleGuideController,
 };

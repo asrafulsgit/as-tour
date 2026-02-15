@@ -10,7 +10,7 @@ const router = Router();
 router.post(
   "/apply",
   authentication(Role.USER),
-  multerUpload.single("nidPhoto"),
+  multerUpload.array("images"),
   guideControllers.applyGuideController,
 );
 

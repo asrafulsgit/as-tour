@@ -8,9 +8,10 @@ const applyGuideShcema = new Schema<Partial<IApplyGuide>>(
       required: [true, "User ID is required"],
       ref: "User",
     },
-    nidPhoto: {
-      type: String,
-      required: [true, "NID Photo is required"],
+    nidPhotos: {
+      type: [String],
+      required: [true, "NID Photos is required"],
+      default: [],
     },
     divisionId: {
       type: Schema.Types.ObjectId,
