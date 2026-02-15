@@ -1,90 +1,116 @@
 import { NextFunction, Request, Response } from "express";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
-import httpStatusCode from 'http-status-codes';
+import httpStatusCode from "http-status-codes";
 import { divisionServices } from "./division.services";
 import { IDivision } from "./division.interface";
 
 // create division controller
-const createDivisionController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-     
-    const payload : IDivision = {
-        ...req.body,
-        thumbnail : req.file?.path 
-    }
-    
+const createDivisionController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const payload: IDivision = {
+      ...req.body,
+      thumbnail: req.file?.path,
+    };
+
     const data = await divisionServices.createDivisionService(payload);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.CREATED,
-        success : true,
-        message : 'Division created',
-        data 
+    sendResponse(res, {
+      statusCode: httpStatusCode.CREATED,
+      success: true,
+      message: "Division created",
+      data,
     });
-});
+  },
+);
 
 // get all divisions controller
-const getAllDivisionsController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const getAllDivisionsController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const results = await divisionServices.getAllDivisionsService();
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'Divisions retrived',
-        data : results.data,
-        meta : {  total : results.meta.totalDivisions }
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Divisions retrived",
+      data: results.data,
+      meta: { total: results.meta.totalDivisions },
     });
-});
+  },
+);
+
+// get all divisions tour count controller
+const getAllDivisionsTourCountController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const results = await divisionServices.getAllDivisionsTourCountService();
+
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Divisions tour count retrived",
+      data: results,
+    });
+  },
+);
 
 // get signle division controller
-const getSingleDivisionController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const getSingleDivisionController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const slug = req.params.slug;
     const results = await divisionServices.getSingleDivisionService(slug);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'Division retrived',
-        data : results
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Division retrived",
+      data: results,
     });
-});
+  },
+);
 
 // update division controller
-const updateDivisionController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const updateDivisionController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const divisionId = req.params.id;
     const image = req.file?.path;
 
-    const payload : Partial<IDivision> ={
-        ...req.body,
-        thumbnail : image
-    }
-    const results = await divisionServices.updateDivisionService(divisionId,payload);
+    const payload: Partial<IDivision> = {
+      ...req.body,
+      thumbnail: image,
+    };
+    const results = await divisionServices.updateDivisionService(
+      divisionId,
+      payload,
+    );
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'Division updated',
-        data : results
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Division updated",
+      data: results,
     });
-});
+  },
+);
 
 // delete division controller
-const deleteDivisionController = asyncHandler(async (req: Request, res: Response) => {
-     const divisionId = req.params.id;
-      await divisionServices.deleteDivisionService(divisionId);
+const deleteDivisionController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const divisionId = req.params.id;
+    await divisionServices.deleteDivisionService(divisionId);
     sendResponse(res, {
-        statusCode: httpStatusCode.OK,
-        success: true,
-        message: "Division deleted",
-        data: null
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Division deleted",
+      data: null,
     });
-});
-
+  },
+);
 
 export const divisionControllers = {
-    createDivisionController,
-    getAllDivisionsController,
-    getSingleDivisionController,
-    updateDivisionController,
-    deleteDivisionController
-}
+  createDivisionController,
+  getAllDivisionsController,
+  getAllDivisionsTourCountController,
+  getSingleDivisionController,
+  updateDivisionController,
+  deleteDivisionController,
+};

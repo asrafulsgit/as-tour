@@ -27,6 +27,32 @@ const getAllDivisionsService = async () => {
   };
 };
 
+// get all divisions tour count service
+const getAllDivisionsTourCountService = async () => {
+  const result = await Division.aggregate([
+    {
+      $lookup: {
+        from: "tours", // collection name (usually plural & lowercase)
+        localField: "_id",
+        foreignField: "division",
+        as: "tours",
+      },
+    },
+    {
+      $addFields: {
+        tourCount: { $size: "$tours" },
+      },
+    },
+    {
+      $project: {
+        tours: 0,
+      },
+    },
+  ]);
+
+  return result;
+};
+
 // get single division service
 const getSingleDivisionService = async (slug: string) => {
   const division = await Division.findOne({ slug });
@@ -78,6 +104,7 @@ const deleteDivisionService = async (divisionId: string) => {
 export const divisionServices = {
   createDivisionService,
   getAllDivisionsService,
+  getAllDivisionsTourCountService,
   getSingleDivisionService,
   updateDivisionService,
   deleteDivisionService,

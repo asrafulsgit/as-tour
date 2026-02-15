@@ -13,7 +13,9 @@ router.post('/create',
     divisionControllers.createDivisionController);
 
 //get all divisions
-router.get('/all',divisionControllers.getAllDivisionsController);
+router.get('/all',divisionControllers.getAllDivisionsController); 
+
+router.get('/tour-count',divisionControllers.getAllDivisionsTourCountController); 
 
 // get single division
 router.get('/:slug',divisionControllers.getSingleDivisionController)
@@ -26,6 +28,8 @@ router.patch('/:id',
 
 //delete division
 router.delete('/:id',authentication(Role.ADMIN,Role.SUPER_ADMIN),divisionControllers.deleteDivisionController);
+
+
 
 
 export const divisionRouter = router;
