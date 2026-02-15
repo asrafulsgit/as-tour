@@ -49,22 +49,22 @@ export class QueryBuilder<T> {
     return this;
   }
 
-  populate(fields?: string | string[]): this {
-    if (!fields) {
-      return this;
-    }
+  // populate(fields?: string | string[]): this {
+  //   if (!fields) {
+  //     return this;
+  //   }
 
-    if (typeof fields === "string") {
-      // Single field: 'userId'
-      this.modelQuery = this.modelQuery.populate(fields);
-    } else if (Array.isArray(fields)) {
-      // Array of fields: ['userId', 'divisionId']
-      fields.forEach((field) => {
-        this.modelQuery = this.modelQuery.populate(field);
-      });
-    }  
-    return this;
-  }
+  //   if (typeof fields === "string") {
+  //     // Single field: 'userId'
+  //     this.modelQuery = this.modelQuery.populate(fields);
+  //   } else if (Array.isArray(fields)) {
+  //     // Array of fields: ['userId', 'divisionId']
+  //     fields.forEach((field) => {
+  //       this.modelQuery = this.modelQuery.populate(field);
+  //     });
+  //   }  
+  //   return this;
+  // }
 
   paginate(): this {
     const page = Number(this.query.page) || 1;

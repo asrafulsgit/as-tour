@@ -26,11 +26,25 @@ const createReviewService = async (payload: IReview, userId: string) => {
       );
     }
 
-    await Review.create([{ ...payload, user: userId }], { session });
+    const review = await Review.create([{ ...payload, user: userId }], {
+      session,
+    });
+    const tourId = review[0].tour;
+    const stats = await Review.aggregate([
+      { $match: { tour: tourId } },
+      {
+        $group: {
+          _id: "$tour",
+          avgRating: { $avg: "$rating" },
+          totalReviews: { $sum: 1 },
+        },
+      },
+    ]).session(session);
     await Tour.findByIdAndUpdate(
       payload.tour,
       {
-        $inc: { reviews: 1 },
+        rating: stats[0]?.avgRating || 0,
+        reviews: stats[0]?.totalReviews || 0,
       },
       { session },
     );
@@ -70,13 +84,26 @@ const deleteReviewService = async (reviewId: string) => {
     if (!review) {
       throw new AppError(httpStatusCode.NOT_FOUND, "Review not found.");
     }
+    const tourId = review.tour;
 
     await Review.findByIdAndDelete(reviewId, { session });
 
-    await Tour.findByIdAndUpdate(
-      review.tour,
+    const stats = await Review.aggregate([
+      { $match: { tour: tourId } },
       {
-        $inc: { reviews: -1 },
+        $group: {
+          _id: "$tour",
+          avgRating: { $avg: "$rating" },
+          totalReviews: { $sum: 1 },
+        },
+      },
+    ]).session(session);
+    
+    await Tour.findByIdAndUpdate(
+      tourId,
+      {
+        rating: stats[0]?.avgRating || 0,
+        reviews: stats[0]?.totalReviews || 0,
       },
       { session },
     );

@@ -22,5 +22,6 @@ export interface ITour {
   tourType: Types.ObjectId;
   guide?: Types.ObjectId;
   reviews: number;
+  rating : number;
   deleteImages?: string[];
 }
