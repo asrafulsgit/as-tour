@@ -4,6 +4,7 @@ import { ITour, ITourType } from "./tour.interface";
 import { Tour, TourType } from "./tour.model";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import { deleteCloudinaryImage } from "../../config/cloudinary";
+import { tourSearchableFields } from "../../utils/constants";
 
 // create tourType service
 const createTourTypeService = async (payload: Partial<ITourType>) => {
@@ -87,9 +88,16 @@ const getAllToursService = async (query: Record<string, string>) => {
       .populate("division", "_id name"),
     query,
   );
-  const tours = await queryBuilder.search([]).filter().sort().paginate();
+  const tours = await queryBuilder
+    .search(["title", "description", "location"])
+    .filter()
+    .sort()
+    .paginate();
 
-  const [data, meta] = await Promise.all([tours.build(), tours.getMeta()]);
+  const [data, meta] = await Promise.all([
+    tours.build(),
+    tours.getMeta(["title", "description", "location"]),
+  ]);
 
   return {
     data,

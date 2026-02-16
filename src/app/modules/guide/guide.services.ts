@@ -104,7 +104,7 @@ const getAllGuidesService = async (query: Record<string, string>) => {
 
   const [data, meta] = await Promise.all([
     guides.build(),
-    queryBuilder.getMeta(),
+    queryBuilder.getMeta([]),
   ]);
 
   return {
