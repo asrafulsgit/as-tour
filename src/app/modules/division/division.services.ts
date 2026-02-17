@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { deleteCloudinaryImage } from "../../config/cloudinary";
 import AppError from "../../errorHelpers/appError";
 import { IDivision } from "./division.interface";
@@ -64,41 +65,87 @@ const updateDivisionService = async (
   divisionId: string,
   payload: Partial<IDivision>,
 ) => {
-  const division = await Division.findById(divisionId);
+  const session = await mongoose.startSession();
 
-  if (!division) {
-    throw new AppError(httpStatusCode.NOT_FOUND, "Division not found");
-  }
+  try {
+    session.startTransaction();
 
-  const duplicateDivision = await Division.findOne({
-    name: payload.name,
-    _id: { $ne: divisionId },
-  });
+    const existingDivision =
+      await Division.findById(divisionId).session(session);
 
-  if (duplicateDivision) {
-    throw new AppError(
-      httpStatusCode.BAD_REQUEST,
-      "A division with this name already exist",
+    if (!existingDivision) {
+      throw new AppError(httpStatusCode.NOT_FOUND, "Division not found");
+    }
+
+    if (payload.name && payload.name !== existingDivision.name) {
+      const duplicate = await Division.findOne({
+        name: payload.name,
+        _id: { $ne: divisionId },
+      }).session(session);
+
+      if (duplicate) {
+        throw new AppError(
+          httpStatusCode.BAD_REQUEST,
+          "A division with this name already exists",
+        );
+      }
+    }
+
+    const previousThumbnail = existingDivision.thumbnail;
+
+    const updatedDivision = await Division.findByIdAndUpdate(
+      divisionId,
+      payload,
+      {
+        new: true,
+        runValidators: true,
+        session,
+      },
     );
+
+    if (!updatedDivision) {
+      throw new AppError(
+        httpStatusCode.INTERNAL_SERVER_ERROR,
+        "Failed to update division",
+      );
+    }
+
+    await session.commitTransaction();
+    session.endSession();
+
+    if (
+      previousThumbnail &&
+      payload.thumbnail &&
+      previousThumbnail !== payload.thumbnail
+    ) {
+      await deleteCloudinaryImage(previousThumbnail);
+    }
+
+    return updatedDivision;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
   }
-
-  const updatedDivision = await Division.findByIdAndUpdate(
-    divisionId,
-    payload,
-    { new: true, runValidators: true },
-  );
-
-  // delete previous thumbnail from cloudinay
-  if (division.thumbnail && updatedDivision?.thumbnail) {
-    await deleteCloudinaryImage(division.thumbnail);
-  }
-
-  return updatedDivision;
 };
 
 // delete division service
 const deleteDivisionService = async (divisionId: string) => {
+  const existingDivision = await Division.findById(divisionId);
+
+  if (!existingDivision) {
+    throw new AppError(httpStatusCode.NOT_FOUND, "Division not found");
+  }
+
+  const thumbnailToDelete = existingDivision.thumbnail;
+
   await Division.findByIdAndDelete(divisionId);
+
+  if (thumbnailToDelete) {
+    await deleteCloudinaryImage(thumbnailToDelete);
+  }
+
+  return null;
 };
 
 export const divisionServices = {

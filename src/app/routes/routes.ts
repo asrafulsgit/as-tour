@@ -10,6 +10,7 @@ import { statsRouter } from "../modules/stats/stats.router";
 import { guideRouter } from "../modules/guide/guide.router";
 import { reviewRouter } from "../modules/review/review.router";
 import { contactRouter } from "../modules/contact/contact.router";
+import { blogRouter } from "../modules/blog/blog.router";
 
 export const router = Router();
 
@@ -57,6 +58,10 @@ const routes = [
   {
     path: "/contact",
     route: contactRouter,
+  },
+  {
+    path: "/blog",
+    route: blogRouter,
   },
 ];
 
