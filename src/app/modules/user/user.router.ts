@@ -16,6 +16,7 @@ router.get(
   authentication(...Object.values(Role)),
   userControllers.getUser,
 );
+
 router.patch(
   "/:id",
   authentication(...Object.values(Role)),

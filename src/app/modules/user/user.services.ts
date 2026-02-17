@@ -5,6 +5,7 @@ import httpStatusCode from "http-status-codes";
 import { envs } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { sendEmail } from "../../utils/sendMail";
 
 const userCreateService = async (payload: Partial<IUser>) => {
   const { email, password, ...rest } = payload;

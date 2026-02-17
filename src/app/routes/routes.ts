@@ -9,6 +9,7 @@ import { otpRouter } from "../modules/otp/otp.router";
 import { statsRouter } from "../modules/stats/stats.router";
 import { guideRouter } from "../modules/guide/guide.router";
 import { reviewRouter } from "../modules/review/review.router";
+import { contactRouter } from "../modules/contact/contact.router";
 
 export const router = Router();
 
@@ -52,6 +53,10 @@ const routes = [
   {
     path: "/review",
     route: reviewRouter,
+  },
+  {
+    path: "/contact",
+    route: contactRouter,
   },
 ];
 

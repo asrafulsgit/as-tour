@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title><%= subject %></title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .header {
+      background-color: #2563eb;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .content {
+      padding: 30px;
+      color: #333333;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .info-box {
+      background: #f8fafc; 
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .footer {
+      background-color: #f1f5f9;
+      text-align: center;
+      padding: 15px;
+      font-size: 12px;
+      color: #666666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <%= subject %>
+    </div>
+
+    <div class="content">
+      <p>Hi <strong><%= name %></strong>,</p>
+
+      <div class="info-box">
+        <strong>Email:</strong> <%= email %>
+      </div>
+
+      <p>
+        <%= message %>
+      </p>
+
+      <p>
+        Best regards,<br/>
+        Your Team
+      </p>
+    </div>
+
+    <div class="footer">
+      © <%= new Date().getFullYear() %> TourMate. All rights reserved.
+    </div>
+
+  </div>
+</body>
+</html>
