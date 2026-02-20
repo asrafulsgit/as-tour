@@ -6,6 +6,10 @@ import { envs } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { sendEmail } from "../../utils/sendMail";
+import { deleteCloudinaryImage } from "../../config/cloudinary";
+import { Booking } from "../booking/booking.model";
+import mongoose from "mongoose";
+import { Payment } from "../payment/payment.model";
 
 const userCreateService = async (payload: Partial<IUser>) => {
   const { email, password, ...rest } = payload;
@@ -38,6 +42,9 @@ const userUpdateService = async (
   payload: Partial<IUser>,
   decodedToken: JwtPayload,
 ) => {
+  if (userId !== decodedToken.id) {
+    throw new AppError(httpStatusCode.BAD_GATEWAY, "User is not match");
+  }
   const isUserExist = await User.findById(userId);
   if (!isUserExist) {
     throw new AppError(httpStatusCode.NOT_FOUND, "User not found");
@@ -62,10 +69,21 @@ const userUpdateService = async (
     payload.password = await bcrypt.hash(payload.password, envs.BCRYPT_SALT);
   }
 
+  const existingPicture = isUserExist.picture;
+
   const updatedUser = await User.findByIdAndUpdate(userId, payload, {
     new: true,
     runValidators: true,
   });
+
+  if (
+    payload.picture &&
+    existingPicture &&
+    payload.picture !== existingPicture
+  ) {
+    await deleteCloudinaryImage(existingPicture);
+  }
+
   return updatedUser;
 };
 
@@ -82,9 +100,73 @@ const getUserService = async (user: JwtPayload) => {
   return userData;
 };
 
+const getUserBookingStatsService = async (userId: string) => {
+  const objectUserId = new mongoose.Types.ObjectId(userId);
+
+  const [bookingStats, paymentStats] = await Promise.all([
+    Booking.aggregate([
+      {
+        $match: { user: objectUserId },
+      },
+      {
+        $group: {
+          _id: null,
+          totalBooking: { $sum: 1 },
+          pendingBooking: {
+            $sum: {
+              $cond: [{ $eq: ["$status", "PENDING"] }, 1, 0],
+            },
+          },
+          confirmBooking: {
+            $sum: {
+              $cond: [{ $eq: ["$status", "CONFIRMED"] }, 1, 0],
+            },
+          },
+        },
+      },
+    ]),
+
+    Payment.aggregate([
+      {
+        $match: { status: "PAID" },
+      },
+      {
+        $lookup: {
+          from: "bookings",
+          localField: "booking",
+          foreignField: "_id",
+          pipeline: [
+            {
+              $match: { user: objectUserId },
+            },
+          ],
+          as: "booking",
+        },
+      },
+      {
+        $match: { booking: { $ne: [] } },
+      },
+      {
+        $group: {
+          _id: null,
+          totalSpent: { $sum: "$amount" },
+        },
+      },
+    ]),
+  ]);
+
+  return {
+    totalBooking: bookingStats[0]?.totalBooking || 0,
+    pendingBooking: bookingStats[0]?.pendingBooking || 0,
+    confirmBooking: bookingStats[0]?.confirmBooking || 0,
+    totalSpent: paymentStats[0]?.totalSpent || 0,
+  };
+};
+
 export const userServices = {
   userCreateService,
   userUpdateService,
   getAllUserService,
   getUserService,
+  getUserBookingStatsService
 };

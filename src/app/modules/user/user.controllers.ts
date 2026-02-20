@@ -4,6 +4,7 @@ import { userServices } from "./user.services";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
 import { JwtPayload } from "jsonwebtoken";
+import { IUser } from "./user.interface";
 
 const createUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -18,14 +19,18 @@ const createUser = asyncHandler(
   },
 );
 
-
 const updateUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.params.id;
     const decodedToken = req.user;
+    const image = req.file?.path;
+    const payload: Partial<IUser> = {
+      ...req.body,
+      picture: image,
+    };
     const user = await userServices.userUpdateService(
       userId,
-      req.body,
+      payload,
       decodedToken as JwtPayload,
     );
 
@@ -64,11 +69,26 @@ const getUser = asyncHandler(
     });
   },
 );
- 
+
+const getUserBookingStats = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as JwtPayload;
+    const userBookingsStats = await userServices.getUserBookingStatsService(
+      user.id,
+    );
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "User Booking stats retrived sucessfully.",
+      data: userBookingsStats,
+    });
+  },
+);
 
 export const userControllers = {
   createUser,
   updateUser,
   getAllUsers,
-  getUser
+  getUser,
+  getUserBookingStats
 };

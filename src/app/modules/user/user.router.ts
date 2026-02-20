@@ -2,6 +2,7 @@ import { Router } from "express";
 import { userControllers } from "./user.controllers";
 import { authentication } from "../../middlewares/authentication.middleware";
 import { Role } from "./user.interface";
+import { multerUpload } from "../../config/multer";
 
 const router = Router();
 
@@ -17,8 +18,15 @@ router.get(
   userControllers.getUser,
 );
 
+router.get(
+  "/booking/stats",
+  authentication(Role.USER),
+  userControllers.getUserBookingStats,
+);
+
 router.patch(
   "/:id",
+  multerUpload.single("image"),
   authentication(...Object.values(Role)),
   userControllers.updateUser,
 );
