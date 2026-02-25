@@ -87,10 +87,25 @@ const getSingleGuideController = asyncHandler(
     });
   },
 );
+// get guide applications
+const getGuideApplicationsController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as JwtPayload;
+    const results = await guideServices.getGuideApplicationsService(user.id);
+
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Guide applications retrived",
+      data: results,
+    });
+  },
+);
 export const guideControllers = {
   applyGuideController,
   approveGuideApplicationController,
   rejectGuideApplicationController,
   getGuidesController,
   getSingleGuideController,
+  getGuideApplicationsController
 };

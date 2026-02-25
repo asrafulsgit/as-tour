@@ -122,10 +122,19 @@ const getSingleGuideService = async (id: string) => {
   return guide;
 };
 
+// get guide applications 
+const getGuideApplicationsService = async (userId: string) => {
+  const applications = await GuideApplication.find({
+    userId
+  }).sort("status").populate("divisionId","name");
+  return applications;
+};
+
 export const guideServices = {
   applyGuideService,
   approveGuideService,
   rejectGuideService,
   getAllGuidesService,
   getSingleGuideService,
+  getGuideApplicationsService
 };

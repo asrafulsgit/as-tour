@@ -27,15 +27,20 @@ router.post(
   guideControllers.rejectGuideApplicationController,
 );
 
-
-
-
 // get all guides
 router.get(
   "/all",
   authentication(Role.ADMIN, Role.SUPER_ADMIN),
   guideControllers.getGuidesController
 );  
+
+
+// get guide applications
+router.get(
+  "/applications",
+  authentication(Role.USER,Role.GUIDE),
+  guideControllers.getGuideApplicationsController
+);
 
 // get single guide
 router.get(
