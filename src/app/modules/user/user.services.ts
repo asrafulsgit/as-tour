@@ -119,7 +119,7 @@ const getUserBookingStatsService = async (userId: string) => {
           },
           confirmBooking: {
             $sum: {
-              $cond: [{ $eq: ["$status", "CONFIRMED"] }, 1, 0],
+              $cond: [{ $eq: ["$status", "COMPLETE"] }, 1, 0],
             },
           },
         },

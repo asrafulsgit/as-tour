@@ -17,11 +17,12 @@ export interface ITour {
   amenities?: string[];
   tourPlan?: string[];
   maxGuest?: number;
+  availableGuest?: number;
   minAge?: number;
   division: Types.ObjectId;
   tourType: Types.ObjectId;
   guide?: Types.ObjectId;
   reviews: number;
-  rating : number;
+  rating: number;
   deleteImages?: string[];
 }

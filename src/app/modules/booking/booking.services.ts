@@ -9,6 +9,7 @@ import { Tour } from "../tour/tour.model";
 import { ISSlCommerz } from "../sslCommerz/ssl.interface";
 import { sslCommerzServices } from "../sslCommerz/ssl.services";
 import httpStatusCode from "http-status-codes";
+import mongoose from "mongoose";
 
 const generateTransactionId = () => {
   return `tran_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
@@ -19,6 +20,12 @@ const createBookingService = async (
   payload: Partial<IBooking>,
   userId: string,
 ) => {
+  if (!payload.guests || Number(payload.guests) < 1) {
+    throw new AppError(httpStatus.BAD_REQUEST, "At least 1 guest is required.");
+  }
+
+  const requestedGuests = Number(payload.guests);
+
   const tran_id = generateTransactionId();
   const session = await Booking.startSession();
   session.startTransaction();
@@ -28,23 +35,86 @@ const createBookingService = async (
     if (!user?.phone || !user.address) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "Please Update Your Profile to Book a Tour.",
+        "Please update your profile (phone & address) before booking a tour.",
       );
     }
 
-    const tour = await Tour.findById(payload.tour).select("costFrom");
+    const tour = await Tour.findById(payload.tour).select(
+      "costFrom maxGuest startDate",
+    );
 
-    if (!tour?.costFrom) {
-      throw new AppError(httpStatus.BAD_REQUEST, "No Tour Cost Found!");
+    if (!tour) {
+      throw new AppError(httpStatus.NOT_FOUND, "Tour not found.");
+    }
+    if (!tour?.costFrom || !tour.maxGuest) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Tour pricing is not configured. Please contact support.",
+      );
+    }
+
+    const now = new Date();
+
+    if (tour.startDate && tour.startDate < now) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Cannot book a tour for a past date.",
+      );
+    }
+
+    const existingBookingsAgg = await Booking.aggregate([
+      {
+        $match: {
+          tour: new mongoose.Types.ObjectId(tour._id),
+          status: { $in: [BOOKING_STATUS.COMPLETE, BOOKING_STATUS.PENDING] },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalGuests: { $sum: "$guests" },
+        },
+      },
+    ]);
+
+    const alreadyBookedGuests: number =
+      existingBookingsAgg[0]?.totalGuests ?? 0;
+    const availableSlots = tour.maxGuest - alreadyBookedGuests;
+    if (availableSlots <= 0) {
+      throw new AppError(
+        httpStatus.CONFLICT,
+        "This tour is fully booked. No guest slots remaining.",
+      );
+    }
+    if (requestedGuests > availableSlots) {
+      throw new AppError(
+        httpStatus.CONFLICT,
+        `Only ${availableSlots} guest slot(s) remaining for this tour. You requested ${requestedGuests}.`,
+      );
+    }
+
+    const duplicateBooking = await Booking.findOne({
+      user: userId,
+      tour: payload.tour,
+      status: BOOKING_STATUS.PENDING,
+    });
+
+    if (duplicateBooking) {
+      throw new AppError(
+        httpStatus.CONFLICT,
+        "You already have a pending booking for this tour. Please complete the pending booking before creating a new one.",
+      );
     }
 
     const amount = Number(tour.costFrom) * Number(payload.guests!);
-
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
     const booking = await Booking.create(
       [
         {
           user: userId,
+          guests: requestedGuests,
           status: BOOKING_STATUS.PENDING,
+          expiresAt,
           ...payload,
         },
       ],
@@ -89,6 +159,13 @@ const createBookingService = async (
     const sslPayment =
       await sslCommerzServices.sslCommerzInitializeService(sslPayload);
 
+    if (!sslPayment?.GatewayPageURL) {
+      throw new AppError(
+        httpStatus.BAD_GATEWAY,
+        "Payment gateway initialization failed. Please try again.",
+      );
+    }
+
     await session.commitTransaction();
     session.endSession();
     return {
@@ -114,7 +191,9 @@ const getAllBookingsService = async (query: Record<string, string>) => {
 
 // get my bookings  service
 const getUserBookingsService = async (userId: string) => {
-  const bookings = await Booking.find({ user: userId });
+  const bookings = await Booking.find({ user: userId })
+    .populate("tour", "images title startDate endDate")
+    .populate("payment", "amount");
   return bookings;
 };
 
@@ -122,7 +201,8 @@ const getUserBookingsService = async (userId: string) => {
 const getBookingByIdService = async (bookingId: string) => {
   const booking = await Booking.findById(bookingId)
     .populate("user", "name email picture")
-    .populate("tour", "title slug");
+    .populate("tour", "title images startDate endDate maxGuest")
+    .populate("payment", "amount status");
   return booking;
 };
 

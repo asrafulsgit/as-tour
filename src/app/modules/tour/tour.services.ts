@@ -70,13 +70,10 @@ export const tourTypeServices = {
 // create tour service
 const createTourService = async (payload: Partial<ITour>) => {
   const isExistTour = await Tour.findOne({ title: payload.title });
-
   if (isExistTour) {
     throw new AppError(httpStatusCode.BAD_REQUEST, "Tour Already Exist.");
   }
-
-  const tour = await Tour.create(payload);
-
+  const tour = await Tour.create({...payload,availableGuest : payload.maxGuest});
   return tour;
 };
 

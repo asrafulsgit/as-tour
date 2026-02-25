@@ -1,6 +1,6 @@
-import { model, Schema } from "mongoose"; 
+import { model, Schema } from "mongoose";
 import { BOOKING_STATUS, IBooking } from "./booking.interface";
-  
+
 const bookingSchema = new Schema<IBooking>(
   {
     user: {
@@ -15,24 +15,27 @@ const bookingSchema = new Schema<IBooking>(
     },
     payment: {
       type: Schema.Types.ObjectId,
-      ref: "Payment" 
+      ref: "Payment",
     },
-    guests : {
-        type : Number,
-        required : true,
-        default : 1
+    guests: {
+      type: Number,
+      required: true,
+      min: 1,
+      default: 1,
     },
-    status : {   
-        type : String,
-        enum : Object.values(BOOKING_STATUS),
-        default : BOOKING_STATUS.PENDING
+    status: {
+      type: String,
+      enum: Object.values(BOOKING_STATUS),
+      default: BOOKING_STATUS.PENDING,
+    },
+    expiresAt : {
+      type : Date
     }
   },
   {
     timestamps: true,
     versionKey: false,
-  }
+  },
 );
- 
 
 export const Booking = model<IBooking>("Booking", bookingSchema);

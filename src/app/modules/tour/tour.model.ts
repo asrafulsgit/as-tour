@@ -24,6 +24,7 @@ const tourSchema = new Schema<ITour>(
     amenities: { type: [String], default: [] },
     tourPlan: { type: [String], default: [] },
     maxGuest: { type: Number },
+    availableGuest: { type: Number },
     minAge: { type: Number },
     division: {
       type: Schema.Types.ObjectId,
