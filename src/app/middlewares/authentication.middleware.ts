@@ -6,6 +6,7 @@ import { envs } from "../config/env";
 import { User } from "../modules/user/user.model";
 import { IsActive } from "../modules/user/user.interface";
 import { CUSTOM_ERROR } from "../utils/constants";
+import { clearTokens } from "../utils/clearTokens";
 
 export const authentication =
   (...roles: string[]) =>
@@ -36,6 +37,7 @@ export const authentication =
       }
 
       if (!isUserExist.isVerified) {
+        clearTokens(res);
         throw new AppError(
           httpStatusCode.BAD_REQUEST,
           `User is not verified`,
@@ -46,6 +48,7 @@ export const authentication =
         isUserExist.isActive === IsActive.BLOCKED ||
         isUserExist.isActive === IsActive.INACTIVE
       ) {
+        clearTokens(res);
         throw new AppError(
           httpStatusCode.BAD_REQUEST,
           `User is ${isUserExist.isActive}`,

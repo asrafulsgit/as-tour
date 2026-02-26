@@ -10,6 +10,7 @@ import { deleteCloudinaryImage } from "../../config/cloudinary";
 import { Booking } from "../booking/booking.model";
 import mongoose from "mongoose";
 import { Payment } from "../payment/payment.model";
+import { QueryBuilder } from "../../utils/queryBuilder";
 
 const userCreateService = async (payload: Partial<IUser>) => {
   const { email, password, ...rest } = payload;
@@ -42,8 +43,15 @@ const userUpdateService = async (
   payload: Partial<IUser>,
   decodedToken: JwtPayload,
 ) => {
-  if (userId !== decodedToken.id) {
-    throw new AppError(httpStatusCode.BAD_GATEWAY, "User is not match");
+  if (
+    userId !== decodedToken.id &&
+    decodedToken.role !== Role.ADMIN &&
+    decodedToken.role !== Role.SUPER_ADMIN
+  ) {
+    throw new AppError(
+      httpStatusCode.BAD_GATEWAY,
+      "You cannot modify someone else's data.",
+    );
   }
   const isUserExist = await User.findById(userId);
   if (!isUserExist) {
@@ -87,16 +95,31 @@ const userUpdateService = async (
   return updatedUser;
 };
 
-const getAllUserService = async () => {
-  const users = await User.find().select("-password");
-  const total = await User.countDocuments();
+const getAllUserService = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(User.find().select("-password"), query);
+  const users = await queryBuilder
+    .search(["name", "email", "address", "phone"])
+    .filter()
+    .sort()
+    .paginate();
+
+  const [data, meta] = await Promise.all([
+    users.build(),
+    users.getMeta(["name", "email", "address", "phone"]),
+  ]);
+
   return {
-    users,
-    meta: { total },
+    data,
+    meta,
   };
 };
 const getUserService = async (user: JwtPayload) => {
   const userData = await User.findById(user.id).select("-password");
+  return userData;
+};
+
+const getUserDetailsService = async (user: string) => {
+  const userData = await User.findById(user).select("-password");
   return userData;
 };
 
@@ -168,5 +191,6 @@ export const userServices = {
   userUpdateService,
   getAllUserService,
   getUserService,
-  getUserBookingStatsService
+  getUserBookingStatsService,
+  getUserDetailsService,
 };

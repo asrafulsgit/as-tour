@@ -45,13 +45,14 @@ const updateUser = asyncHandler(
 
 const getAllUsers = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await userServices.getAllUserService();
+    const query = req.query;
+    const result = await userServices.getAllUserService(query as Record<string, string>);
 
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
       success: true,
       message: "Users retrived sucessfully.",
-      data: result.users,
+      data: result.data,
       meta: result.meta,
     });
   },
@@ -61,6 +62,18 @@ const getUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as JwtPayload;
     const userData = await userServices.getUserService(user);
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "User retrived sucessfully.",
+      data: userData,
+    });
+  },
+);
+const getUserDetails = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.id as string;
+    const userData = await userServices.getUserDetailsService(userId);
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
       success: true,
@@ -90,5 +103,6 @@ export const userControllers = {
   updateUser,
   getAllUsers,
   getUser,
-  getUserBookingStats
+  getUserBookingStats,
+  getUserDetails
 };

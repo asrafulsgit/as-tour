@@ -23,7 +23,7 @@ export class QueryBuilder<T> {
   }
 
   search(searchableField: string[]): this {
-    const searchTerm = this.query.searchTerm;
+    const searchTerm = this.query?.searchTerm;
 
     if (!searchTerm) return this;
     const searchQuery = {
@@ -36,7 +36,7 @@ export class QueryBuilder<T> {
   }
 
   sort(): this {
-    const sort = this.query.sort || "-createdAt";
+    const sort = this.query?.sort || "-createdAt";
 
     this.modelQuery = this.modelQuery.sort(sort);
 
@@ -51,8 +51,8 @@ export class QueryBuilder<T> {
   }
 
   paginate(): this {
-    const page = Number(this.query.page) || 1;
-    const limit = Number(this.query.limit) || 10;
+    const page = Number(this.query?.page) || 1;
+    const limit = Number(this.query?.limit) || 10;
     const skip = (page - 1) * limit;
 
     this.modelQuery = this.modelQuery.skip(skip).limit(limit);
@@ -71,15 +71,15 @@ export class QueryBuilder<T> {
       delete filter[field];
     }
 
-    if (this.query.searchTerm) {
+    if (this.query?.searchTerm) {
       (filter as Record<string, unknown>).$or = searchableField.map((field) => ({
         [field]: { $regex: this.query.searchTerm, $options: "i" },
       }));
     }
 
     const totalDocuments = await this.modelQuery.model.countDocuments(filter);
-    const page = Number(this.query.page) || 1;
-    const limit = Number(this.query.limit) || 10;
+    const page = Number(this.query?.page) || 1;
+    const limit = Number(this.query?.limit) || 10;
 
     const totalPage = Math.ceil(totalDocuments / limit);
 

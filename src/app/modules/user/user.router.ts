@@ -24,6 +24,11 @@ router.get(
   userControllers.getUserBookingStats,
 );
 
+router.get(
+  "/:id", 
+  authentication(Role.SUPER_ADMIN,Role.SUPER_ADMIN),
+  userControllers.getUserDetails,
+);
 router.patch(
   "/:id",
   multerUpload.single("image"),

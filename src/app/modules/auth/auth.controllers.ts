@@ -8,6 +8,7 @@ import { setAuthTokens } from "../../utils/setAuthTokens";
 import { JwtPayload } from "jsonwebtoken";
 import { envs } from "../../config/env";
 import { getBothToken } from "../../utils/getBothToken";
+import { clearTokens } from "../../utils/clearTokens";
 
 const authLoginController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -24,11 +25,11 @@ const authLoginController = asyncHandler(
 
 const getAccessTokenController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const refreshToken = req.cookies.refreshToken; 
+    const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
       throw new AppError(httpStatusCode.BAD_REQUEST, "Refresh token not found");
     }
-    const token = await authServices.getAccessTokenService(refreshToken); 
+    const token = await authServices.getAccessTokenService(refreshToken);
     setAuthTokens(res, token);
 
     sendResponse(res, {
@@ -44,18 +45,7 @@ const getAccessTokenController = asyncHandler(
 
 const authLogoutController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.clearCookie("accessToken", {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
-
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
-
+    clearTokens(res);
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
       success: true,
@@ -114,10 +104,8 @@ const authForgotPasswordController = asyncHandler(
   },
 );
 const authResetPasswordController = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => { 
-    await authServices.resetPasswordService(
-      req.body
-    );
+  async (req: Request, res: Response, next: NextFunction) => {
+    await authServices.resetPasswordService(req.body);
 
     sendResponse(res, {
       success: true,
@@ -130,7 +118,7 @@ const authResetPasswordController = asyncHandler(
 
 const googleAuthLoginController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user; 
+    const user = req.user;
     const tokens = getBothToken(user!);
     setAuthTokens(res, tokens);
     res.redirect(envs.FRONTEND_URL);
