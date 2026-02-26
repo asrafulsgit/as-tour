@@ -1,3 +1,4 @@
+import { BOOKING_STATUS } from "../booking/booking.interface";
 import { Booking } from "../booking/booking.model";
 import { PAYMENT_STATUS } from "../payment/payment.interface";
 import { Payment } from "../payment/payment.model";
@@ -119,6 +120,11 @@ const getTourStatsService = async () => {
   ]);
 
   const totalHighestBookedTourPromise = Booking.aggregate([
+    {
+      $match: {
+        status: { $in: [BOOKING_STATUS.PENDING, BOOKING_STATUS.COMPLETE] },
+      },
+    },
     {
       $group: {
         _id: "$tour",
