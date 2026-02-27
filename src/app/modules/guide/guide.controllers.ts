@@ -69,7 +69,8 @@ const getGuidesController = asyncHandler(
       statusCode: 200,
       success: true,
       message: "Guides retrieved successfully",
-      data: guides,
+      data: guides.data,
+      meta: guides.meta,
     });
   },
 );

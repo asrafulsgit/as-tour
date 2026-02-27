@@ -98,7 +98,12 @@ const rejectGuideService = async (applicationId: string) => {
 
 // get guides service
 const getAllGuidesService = async (query: Record<string, string>) => {
-  const queryBuilder = new QueryBuilder(GuideApplication.find(), query);
+  const queryBuilder = new QueryBuilder(
+    GuideApplication.find()
+      .populate("userId", "name email phone address")
+      .populate("divisionId", "name"),
+    query,
+  );
 
   const guides = await queryBuilder.filter().sort().fields().paginate();
 
@@ -115,18 +120,22 @@ const getAllGuidesService = async (query: Record<string, string>) => {
 
 // get single guide
 const getSingleGuideService = async (id: string) => {
-  const guide = await GuideApplication.findById(id).populate(
-    "userId",
-    "name email picture address",
-  );
+  const guide = await GuideApplication.findById(id)
+    .populate("userId", "name email phone address")
+    .populate("divisionId", "name"); 
+  if (!guide) {
+    throw new AppError(httpStatusCode.NOT_FOUND, `Application not found.`);
+  }
   return guide;
 };
 
-// get guide applications 
+// get guide applications
 const getGuideApplicationsService = async (userId: string) => {
   const applications = await GuideApplication.find({
-    userId
-  }).sort("status").populate("divisionId","name");
+    userId,
+  })
+    .sort("status")
+    .populate("divisionId", "name");
   return applications;
 };
 
@@ -136,5 +145,5 @@ export const guideServices = {
   rejectGuideService,
   getAllGuidesService,
   getSingleGuideService,
-  getGuideApplicationsService
+  getGuideApplicationsService,
 };
