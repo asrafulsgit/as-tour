@@ -69,12 +69,12 @@ export const tourTypeServices = {
 
 // create tour service
 const createTourService = async (payload: Partial<ITour>) => {
-  console.log(payload)
+  console.log(payload);
   const isExistTour = await Tour.findOne({ title: payload.title });
   if (isExistTour) {
     throw new AppError(httpStatusCode.BAD_REQUEST, "Tour Already Exist.");
   }
-  await Tour.create({...payload,availableGuest : payload.maxGuest});
+  await Tour.create({ ...payload, availableGuest: payload.maxGuest });
 };
 
 // get all tours  service
@@ -112,7 +112,7 @@ const getSingleTourService = async (tourId: string) => {
 
 // update tour service
 const updateTourService = async (tourId: string, payload: Partial<ITour>) => {
-  const tour = await Tour.findById(tourId);  
+  const tour = await Tour.findById(tourId);
   if (!tour) {
     throw new AppError(httpStatusCode.NOT_FOUND, "Tour not found");
   }
@@ -150,11 +150,8 @@ const updateTourService = async (tourId: string, payload: Partial<ITour>) => {
 
   if (typeof payload.deleteImages === "string") {
     payload.deleteImages = JSON.parse(payload.deleteImages);
-  } 
-  if (
-    payload.deleteImages &&
-    payload.deleteImages.length > 0 
-  ) {
+  }
+  if (payload.deleteImages && payload.deleteImages.length > 0) {
     await Promise.all(
       payload.deleteImages.map((url) => deleteCloudinaryImage(url)),
     );
@@ -165,7 +162,12 @@ const updateTourService = async (tourId: string, payload: Partial<ITour>) => {
 
 // delete tour service
 const deleteTourService = async (tourId: string) => {
-  await Tour.findByIdAndDelete(tourId);
+  const tour = await Tour.findByIdAndDelete(tourId);
+  if (tour?.images && tour.images.length > 0) {
+    await Promise.all(
+      tour.images.map((url) => deleteCloudinaryImage(url)),
+    );
+  }
 };
 
 export const tourServices = {

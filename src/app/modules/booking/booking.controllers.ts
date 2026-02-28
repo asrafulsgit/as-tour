@@ -60,7 +60,7 @@ const getSingleBookingController = asyncHandler(
 // get all bookings
 const getAllBookingsController = asyncHandler(
   async (req: Request, res: Response) => {
-    const query = req.query;
+    const query = req.query; 
     const results = await bookingServices.getAllBookingsService(
       query as Record<string, string>,
     );
@@ -69,9 +69,7 @@ const getAllBookingsController = asyncHandler(
       success: true,
       message: "Bookings retrieved successfully",
       data: results.data,
-      meta: {
-        total: results.meta.totalsBookings,
-      },
+      meta: results.meta,
     });
   },
 );

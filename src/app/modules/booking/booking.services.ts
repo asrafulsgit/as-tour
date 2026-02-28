@@ -10,6 +10,7 @@ import { ISSlCommerz } from "../sslCommerz/ssl.interface";
 import { sslCommerzServices } from "../sslCommerz/ssl.services";
 import httpStatusCode from "http-status-codes";
 import mongoose from "mongoose";
+import { QueryBuilder } from "../../utils/queryBuilder";
 
 const generateTransactionId = () => {
   return `tran_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
@@ -181,11 +182,20 @@ const createBookingService = async (
 
 // get all bookings  service
 const getAllBookingsService = async (query: Record<string, string>) => {
-  const data = await Booking.find();
-  const totalsBookings = await Booking.countDocuments();
+  const queryBuilder = new QueryBuilder(
+    Booking.find().populate("tour", "title").populate("payment", "amount"),
+    query,
+  );
+  const bookings = await queryBuilder.search([]).filter().sort().paginate();
+
+  const [data, meta] = await Promise.all([
+    bookings.build(),
+    bookings.getMeta([]),
+  ]);
+
   return {
     data,
-    meta: { totalsBookings },
+    meta,
   };
 };
 
