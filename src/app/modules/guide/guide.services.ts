@@ -12,6 +12,15 @@ const applyGuideService = async (
   payload: Partial<IApplyGuide>,
   userId: string,
 ) => {
+  const user = await User.findById(userId);
+
+  if(!user?.phone || !user?.address){
+    throw new AppError(
+      httpStatusCode.BAD_REQUEST,
+      "Please update your profile (phone & address) before application.",
+    );
+  }
+
   const isExistApplication = await GuideApplication.findOne({ userId });
 
   if (isExistApplication?.status === GuideApplicationStatus.PENDING) {
@@ -122,7 +131,7 @@ const getAllGuidesService = async (query: Record<string, string>) => {
 const getSingleGuideService = async (id: string) => {
   const guide = await GuideApplication.findById(id)
     .populate("userId", "name email phone address")
-    .populate("divisionId", "name"); 
+    .populate("divisionId", "name");
   if (!guide) {
     throw new AppError(httpStatusCode.NOT_FOUND, `Application not found.`);
   }

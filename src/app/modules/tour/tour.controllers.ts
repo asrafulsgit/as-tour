@@ -1,163 +1,188 @@
 import { NextFunction, Request, Response } from "express";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { sendResponse } from "../../utils/sendResponse";
-import httpStatusCode from 'http-status-codes'; 
+import httpStatusCode from "http-status-codes";
 import { tourServices, tourTypeServices } from "./tour.services";
 import { ITour } from "./tour.interface";
 
 // create tourType controller
-const createTourTypeController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const createTourTypeController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const data = await tourTypeServices.createTourTypeService(req.body);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.CREATED,
-        success : true,
-        message : 'tourType created',
-        data 
+    sendResponse(res, {
+      statusCode: httpStatusCode.CREATED,
+      success: true,
+      message: "tourType created",
+      data,
     });
-});
+  },
+);
 
 // get all tourTypes controller
-const getAllTourTypesController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const getAllTourTypesController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const results = await tourTypeServices.getAllTourTypeService();
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tourTypes retrived',
-        data : results.data,
-        meta : {  total : results.meta.totalTourTypes }
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "tourTypes retrived",
+      data: results.data,
+      meta: { total: results.meta.totalTourTypes },
     });
-});
+  },
+);
 
 // get signle tourType controller
-const getSingleTourTypeController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const getSingleTourTypeController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const tourTypeId = req.params.id;
     const results = await tourTypeServices.getSingleTourTypeService(tourTypeId);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tourType retrived',
-        data : results
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "tourType retrived",
+      data: results,
     });
-});
+  },
+);
 
 // update tourType controller
-const updateTourTypeController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const updateTourTypeController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const tourTypeId = req.params.id;
 
-    const results = await tourTypeServices.updateTourTypeService(tourTypeId,req.body);
+    const results = await tourTypeServices.updateTourTypeService(
+      tourTypeId,
+      req.body,
+    );
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tourType updated',
-        data : results
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "tourType updated",
+      data: results,
     });
-});
+  },
+);
 
 // delete tourType controller
-const deletetourTypeController = asyncHandler(async (req: Request, res: Response) => {
+const deletetourTypeController = asyncHandler(
+  async (req: Request, res: Response) => {
     const toutTypeId = req.params.id;
     await tourTypeServices.deleteTourTypeService(toutTypeId);
     sendResponse(res, {
-        statusCode: httpStatusCode.OK,
-        success: true,
-        message: "tourType deleted",
-        data: null
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "tourType deleted",
+      data: null,
     });
-});
-
+  },
+);
 
 export const tourTypeControllers = {
-    createTourTypeController,
-    getAllTourTypesController,
-    getSingleTourTypeController,
-    updateTourTypeController,
-    deletetourTypeController
+  createTourTypeController,
+  getAllTourTypesController,
+  getSingleTourTypeController,
+  updateTourTypeController,
+  deletetourTypeController,
 };
 
-
 // create tour controller
-const createTourController = asyncHandler(async (req: Request, res: Response) => {
-    
-    const payload : ITour = {
-        ...req.body,
-        images : (req.files as Express.Multer.File[])?.map(file => file.path)
-    } 
-    const result = await tourServices.createTourService(payload);
+const createTourController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const payload: ITour = {
+      ...req.body,
+      images: (req.files as Express.Multer.File[])?.map((file) => file.path),
+    };
+    await tourServices.createTourService(payload);
     sendResponse(res, {
-        statusCode: httpStatusCode.CREATED,
-        success: true,
-        message: 'Tour created successfully',
-        data: result,
+      statusCode: httpStatusCode.CREATED,
+      success: true,
+      message: "Tour created successfully",
+      data: null,
     });
-});
+  },
+);
 
 // get all tours controller
-const getAllToursController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
-    const results = await tourServices.getAllToursService(req.query as Record<string,string>);
+const getAllToursController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const results = await tourServices.getAllToursService(
+      req.query as Record<string, string>,
+    );
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'tours retrived',
-        data : results.data,
-        meta : results.meta
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "tours retrived",
+      data: results.data,
+      meta: results.meta,
     });
-});
+  },
+);
 
 // get signle tour controller
-const getSingleTourController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const getSingleTourController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const tourId = req.params.id;
     const results = await tourServices.getSingleTourService(tourId);
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'Tour retrived',
-        data : results
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Tour retrived",
+      data: results,
     });
-});
+  },
+);
 
 // update tour controller
-const updateTourController = asyncHandler(async(req : Request, res : Response,next : NextFunction)=>{
+const updateTourController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
     const tourId = req.params.id;
 
-    const images = (req.files as Express.Multer.File[]).map(file => file.path);
-  
-    const payload : Partial<ITour> ={
-        ...req.body,
-        images
-    }
-    
-    const results = await tourServices.updateTourService(tourId,payload);
+    const files = req.files as Express.Multer.File[] | undefined;
 
-    sendResponse(res,{
-        statusCode : httpStatusCode.OK,
-        success : true,
-        message : 'Tour updated',
-        data : results
+    const payload: Partial<ITour> = {
+      ...req.body,
+    };
+
+    if (files && files.length > 0) {
+      payload.images = files.map((file) => file.path);
+    }
+
+    const results = await tourServices.updateTourService(tourId, payload);
+
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Tour updated",
+      data: results,
     });
-});
+  },
+);
 
 // delete tour controller
-const deletetourController = asyncHandler(async (req: Request, res: Response) => {
+const deletetourController = asyncHandler(
+  async (req: Request, res: Response) => {
     const tourId = req.params.id;
     await tourServices.deleteTourService(tourId);
     sendResponse(res, {
-        statusCode: httpStatusCode.OK,
-        success: true,
-        message: "tour deleted",
-        data: null
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "tour deleted",
+      data: null,
     });
-});
+  },
+);
 
 export const tourControllers = {
-    createTourController,
-    getAllToursController,
-    getSingleTourController,
-    updateTourController,
-    deletetourController
-}
+  createTourController,
+  getAllToursController,
+  getSingleTourController,
+  updateTourController,
+  deletetourController,
+};

@@ -24,6 +24,7 @@ export const globalErrorHandle = async (
     const images = (req.files as Express.Multer.File[]).map(
       (file) => file.path,
     );
+    console.log(images)
     await Promise.all(images.map((image) => deleteCloudinaryImage(image)));
   }
 
