@@ -55,8 +55,11 @@ const getAllDivisionsTourCountService = async () => {
 };
 
 // get single division service
-const getSingleDivisionService = async (slug: string) => {
-  const division = await Division.findOne({ slug });
+const getSingleDivisionService = async (id: string) => {
+  const division = await Division.findById(id);
+  if (!division) {
+    throw new AppError(httpStatusCode.NOT_FOUND, "Division not found");
+  }
   return division;
 };
 

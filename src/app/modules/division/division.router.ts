@@ -18,7 +18,7 @@ router.get('/all',divisionControllers.getAllDivisionsController);
 router.get('/tour-count',divisionControllers.getAllDivisionsTourCountController); 
 
 // get single division
-router.get('/:slug',divisionControllers.getSingleDivisionController)
+router.get('/:id',divisionControllers.getSingleDivisionController)
 
 //update division
 router.patch('/:id',

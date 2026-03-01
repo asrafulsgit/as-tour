@@ -13,13 +13,13 @@ const createDivisionController = asyncHandler(
       thumbnail: req.file?.path,
     };
 
-    const data = await divisionServices.createDivisionService(payload);
+    await divisionServices.createDivisionService(payload);
 
     sendResponse(res, {
       statusCode: httpStatusCode.CREATED,
       success: true,
       message: "Division created",
-      data,
+      data : null,
     });
   },
 );
@@ -56,8 +56,8 @@ const getAllDivisionsTourCountController = asyncHandler(
 // get signle division controller
 const getSingleDivisionController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const slug = req.params.slug;
-    const results = await divisionServices.getSingleDivisionService(slug);
+    const id = req.params.id;
+    const results = await divisionServices.getSingleDivisionService(id);
 
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
@@ -78,7 +78,7 @@ const updateDivisionController = asyncHandler(
       ...req.body,
       thumbnail: image,
     };
-    const results = await divisionServices.updateDivisionService(
+    await divisionServices.updateDivisionService(
       divisionId,
       payload,
     );
@@ -87,7 +87,7 @@ const updateDivisionController = asyncHandler(
       statusCode: httpStatusCode.OK,
       success: true,
       message: "Division updated",
-      data: results,
+      data: null
     });
   },
 );
