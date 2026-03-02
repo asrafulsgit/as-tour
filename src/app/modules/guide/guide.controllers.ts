@@ -11,7 +11,7 @@ const applyGuideController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const payload: IApplyGuide = {
       ...req.body,
-      nidPhotos : (req.files as Express.Multer.File[])?.map(file => file.path),
+      nidPhotos: (req.files as Express.Multer.File[])?.map((file) => file.path),
     };
     const user = req.user as JwtPayload;
 
@@ -102,11 +102,42 @@ const getGuideApplicationsController = asyncHandler(
     });
   },
 );
+// get guide stats
+const getGuideStatsController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as JwtPayload;
+    const results = await guideServices.getGuideStatsService(user.id);
+
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Guide stats retrived",
+      data: results,
+    });
+  },
+);
+// get guide assigned tours
+const getGuideAssignedToursController = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as JwtPayload;
+    const limit = Number(req.query.limit) || 10;
+    const results = await guideServices.getAssignedToursService(user.id,limit);
+
+    sendResponse(res, {
+      statusCode: httpStatusCode.OK,
+      success: true,
+      message: "Guide assigned tours retrived",
+      data: results,
+    });
+  },
+);
 export const guideControllers = {
   applyGuideController,
   approveGuideApplicationController,
   rejectGuideApplicationController,
   getGuidesController,
   getSingleGuideController,
-  getGuideApplicationsController
+  getGuideApplicationsController,
+  getGuideStatsController,
+  getGuideAssignedToursController
 };

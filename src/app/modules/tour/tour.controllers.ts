@@ -173,7 +173,7 @@ const deletetourController = asyncHandler(
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
       success: true,
-      message: "tour deleted",
+      message: "Tour deleted",
       data: null,
     });
   },

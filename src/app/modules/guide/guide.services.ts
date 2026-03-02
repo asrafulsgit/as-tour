@@ -6,6 +6,7 @@ import { User } from "../user/user.model";
 import { GuideApplicationStatus, IApplyGuide } from "./guide.interface";
 import { GuideApplication } from "./guide.model";
 import httpStatusCode from "http-status-codes";
+import { Tour } from "../tour/tour.model";
 
 // guide application service
 const applyGuideService = async (
@@ -14,7 +15,7 @@ const applyGuideService = async (
 ) => {
   const user = await User.findById(userId);
 
-  if(!user?.phone || !user?.address){
+  if (!user?.phone || !user?.address) {
     throw new AppError(
       httpStatusCode.BAD_REQUEST,
       "Please update your profile (phone & address) before application.",
@@ -148,6 +149,84 @@ const getGuideApplicationsService = async (userId: string) => {
   return applications;
 };
 
+// get guide stats
+const getGuideStatsService = async (guideId: string) => {
+  const now = new Date();
+
+ const stats = await Tour.aggregate([
+    {
+      $match: {
+        guide: new mongoose.Types.ObjectId(guideId),
+      },
+    },
+    {
+      $group: {
+        _id: null,
+
+        completedTours: {
+          $sum: {
+            $cond: [{ $lt: ["$endDate", now] }, 1, 0],
+          },
+        },
+
+        upcomingTours: {
+          $sum: {
+            $cond: [{ $gt: ["$startDate", now] }, 1, 0],
+          },
+        },
+
+        pendingTours: {
+          $sum: {
+            $cond: [
+              {
+                $and: [
+                  { $lte: ["$startDate", now] },
+                  { $gte: ["$endDate", now] },
+                ],
+              },
+              1,
+              0,
+            ],
+          },
+        },
+
+        totalGuests: {
+          $sum: {
+            $cond: [
+              { $lt: ["$endDate", now] }, // only completed tours
+              "$maxGuest",
+              0,
+            ],
+          },
+        },
+      },
+    },
+  ]);
+
+  return (
+    stats[0] || {
+      completedTours: 0,
+      upcomingTours: 0,
+      pendingTours: 0,
+      totalGuests: 0,
+    }
+  );
+};
+
+// guide assigned tours
+const getAssignedToursService = async (
+  guideId: string,
+  limit : number
+) => {
+    
+  const tours = await Tour.find({
+    guide: new mongoose.Types.ObjectId(guideId),
+  })
+    .sort({ createdAt: -1 })  
+    .limit(limit); 
+  return tours;
+};
+
 export const guideServices = {
   applyGuideService,
   approveGuideService,
@@ -155,4 +234,6 @@ export const guideServices = {
   getAllGuidesService,
   getSingleGuideService,
   getGuideApplicationsService,
+  getGuideStatsService,
+  getAssignedToursService
 };

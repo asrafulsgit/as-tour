@@ -27,27 +27,38 @@ router.post(
   guideControllers.rejectGuideApplicationController,
 );
 
+//guide stats
+router.get(
+  "/stats",
+  authentication(Role.GUIDE),
+  guideControllers.getGuideStatsController,
+);
+//guide assigned tours
+router.get(
+  "/assigned/tours",
+  authentication(Role.GUIDE),
+  guideControllers.getGuideAssignedToursController,
+);
+
 // get all guides
 router.get(
   "/all",
   authentication(Role.ADMIN, Role.SUPER_ADMIN),
-  guideControllers.getGuidesController
-);  
-
+  guideControllers.getGuidesController,
+);
 
 // get guide applications
 router.get(
   "/applications",
-  authentication(Role.USER,Role.GUIDE),
-  guideControllers.getGuideApplicationsController
+  authentication(Role.USER, Role.GUIDE),
+  guideControllers.getGuideApplicationsController,
 );
 
 // get single guide
 router.get(
   "/:id",
   authentication(Role.ADMIN, Role.SUPER_ADMIN),
-  guideControllers.getSingleGuideController
+  guideControllers.getSingleGuideController,
 );
-
 
 export const guideRouter = router;
