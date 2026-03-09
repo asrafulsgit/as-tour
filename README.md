@@ -129,7 +129,6 @@ npm run dev
 | POST   | /api/v1/auth/set-password    | set password              |
 | POST   | /api/v1/auth/forgot-password | forgot password           |
 | POST   | /api/v1/auth/reset-password  | reset password            |
-| POST   | /api/v1/auth/reset-password  | reset password            |
 | POST   | /api/v1/auth/refresh-token   | get refresh token         |
 | POST   | /api/v1/auth/logout          | Logout (clear cookie)     |
 | POST   | /api/v1/auth/google          | Google OAuth login        |
@@ -138,11 +137,28 @@ npm run dev
 
 ### Users
 
-| Method | Endpoint                | Description                   |
-| ------ | ----------------------- | ----------------------------- |
-| POST   | /api/v1/user/register   | Register new user             |
-| GET    | /api/v1/user/:id        | update user                   |
-| GET    | /api/v1/user/all-users? | [ADMIN/SUPER_ADMIN] get users |
+| Method | Endpoint                | Description                                      |
+| ------ | ----------------------- | ------------------------------------------------ |
+| POST   | /api/v1/user/register   | Register new user                                |
+| PATCH  | /api/v1/user/:id        | [USER/GUIDE/ADMIN]update user                    |
+| GET    | /api/v1/user/all-users? | [ADMIN/SUPER_ADMIN] get users                    |
+| GET    | /api/v1/user/me         | [USER/GUIDE/ADMIN/SUPER_ADMIN] get users profile |
+| GET    | /api/v1/user/:id        | [USER/GUIDE/ADMIN/SUPER_ADMIN] get users details |
+
+---
+
+### Guide
+
+| Method | Endpoint                     | Description                              |
+| ------ | ---------------------------- | ---------------------------------------- |
+| POST   | /api/v1/guide/apply          | [USER] Guide application                 |
+| POST   | /api/v1/guide/approve/:id    | [ADMIN/SUPER_ADMIN] Approve application  |
+| POST   | /api/v1/guide/reject/:id     | [ADMIN/SUPER_ADMIN] Reject application   |
+| GET    | /api/v1/guide/all            | [ADMIN/SUPER_ADMIN] Get all applications |
+| GET    | /api/v1/guide/:id            | [ADMIN/SUPER_ADMIN] Get application      |
+| GET    | /api/v1/guide/applications   | [USER] Get my applications               |
+| GET    | /api/v1/guide/stats          | [GUIDE] Get my stats                     |
+| GET    | /api/v1/guide/assigned/tours | [GUIDE] Get my assigned tours            |
 
 ---
 
@@ -172,21 +188,24 @@ npm run dev
 
 ### Booking
 
-| Method | Endpoint                          | Description                               |
-| ------ | --------------------------------- | ----------------------------------------- |
-| POST   | /api/v1/booking/create            | [USER] create booking                     |
-| GET    | /api/v1/booking/all?              | [ADMIN/SUPER_ADMIN] Get bookings          |
-| GET    | /api/v1/booking/:bookingId        | get single booking                        |
-| PATCH  | /api/v1/booking/:bookingId/status | [ADMIN/SUPER_ADMIN] update booking status |
-| GET    | /api/v1/booking/my-bookings       | [USER] my bookings                        |
+| Method | Endpoint                          | Description                                 |
+| ------ | --------------------------------- | ------------------------------------------- |
+| POST   | /api/v1/booking/create            | [USER] create booking                       |
+| GET    | /api/v1/booking/all?              | [ADMIN/SUPER_ADMIN] Get bookings            |
+| GET    | /api/v1/booking/:bookingId        | [USER/ADMIN/SUPER_ADMIN] get single booking |
+| PATCH  | /api/v1/booking/:bookingId/status | [ADMIN/SUPER_ADMIN] update booking status   |
+| GET    | /api/v1/booking/my-bookings       | [USER] my bookings                          |
+| GET    | /api/v1/user/booking/stats        | [USER] bookings stats                       |
 
 ---
 
 ### 📝 Payment
 
-| Method                        | Endpoint | Description |
-| ----------------------------- | -------- | ----------- |
-| All payment APIs are private. |
+| Method                          | Endpoint                              | Description             |
+| ------------------------------- | ------------------------------------- | ----------------------- |
+| POST                            | /api/v1/payment/re-payment/:bookingId | [USER] Re-payment       |
+| GET                             | /api/v1/payment/invoice/:paymentId    | [USER] Download invoice |
+| Other payment APIs are private. |
 
 ---
 
@@ -205,13 +224,13 @@ npm run dev
 | ------ | ----------------------- | ------------------------------------ |
 | POST   | /api/v1/division/create | [ADMIN/SUPER_ADMIN] create division  |
 | GET    | /api/v1/division/all    | get all divisions                    |
-| GET    | /api/v1/division/:slug  | get single divisions                 |
+| GET    | /api/v1/division/:id    | get single divisions                 |
 | PATCH  | /api/v1/division/:id    | [ADMIN/SUPER_ADMIN] update divisions |
 | DELETE | /api/v1/division/:id    | [ADMIN/SUPER_ADMIN] delete divisions |
 
 ---
 
-### Stats
+### Admin Stats
 
 | Method | Endpoint              | Description                       |
 | ------ | --------------------- | --------------------------------- |
@@ -219,6 +238,36 @@ npm run dev
 | GET    | /api/v1/stats/tour    | [ADMIN/SUPER_ADMIN] tour stats    |
 | GET    | /api/v1/stats/booking | [ADMIN/SUPER_ADMIN] booking stats |
 | GET    | /api/v1/stats/payment | [ADMIN/SUPER_ADMIN] payment stats |
+
+---
+
+### Review
+
+| Method | Endpoint               | Description                |
+| ------ | ---------------------- | -------------------------- |
+| POST   | /api/v1/review/create  | [USER] Post review         |
+| GET    | /api/v1/review/:tourId | Get all reviews for a tour |
+| DELETE | /api/v1/review/:id     | [USER] delete review       |
+
+---
+
+### Blog
+
+| Method | Endpoint          | Description                                |
+| ------ | ----------------- | ------------------------------------------ |
+| POST   | /api/v1/blog      | [USER/GUIDE/ADMIN/SUPER_ADMIN] Post a blog |
+| GET    | /api/v1/blog/all? | Get all blogs                              |
+| GET    | /api/v1/blog/:id  | Get single blog                            |
+| PATCH  | /api/v1/blog/:id  | [USER/GUIDE/ADMIN/SUPER_ADMIN] Update blog |
+| DELETE | /api/v1/blog/:id  | [USER/GUIDE/ADMIN/SUPER_ADMIN] Delete blog |
+
+---
+
+### Contact
+
+| Method | Endpoint              | Description |
+| ------ | --------------------- | ----------- |
+| POST   | /api/v1/contact/email | Contact with email  |
 
 ---
 
