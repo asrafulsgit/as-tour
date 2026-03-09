@@ -57,7 +57,7 @@ const paymentCancelController = asyncHandler(async (req: Request,
 // payment invoice controller
 const paymentInvoiceController = asyncHandler(async (req: Request, 
     res: Response) => { 
-   const paymentId = req.params.paymentId;
+   const paymentId = req.params.paymentId as string;
    const user = req.user as JwtPayload;
    const result = await paymentServices.getInvoiceService(paymentId,user.id)
     sendResponse(res, {

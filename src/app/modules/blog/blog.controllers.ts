@@ -27,7 +27,7 @@ const createBlogController = asyncHandler(
 
 const getSingleBlogController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const blogId = req.params.id;
+    const blogId = req.params.id as string;
     const results = await blogServices.getSingleBlogService(blogId);
 
     sendResponse(res, {
@@ -57,7 +57,7 @@ const getAllBlogsController = asyncHandler(
 
 const updateBlogController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const blogId = req.params.id;
+    const blogId = req.params.id as string;
     const image = req.file?.path;
     const user = req.user as JwtPayload;
 
@@ -82,7 +82,7 @@ const updateBlogController = asyncHandler(
 
 const deleteBlogController = asyncHandler(
   async (req: Request, res: Response) => {
-    const blogId = req.params.id;
+    const blogId = req.params.id as string;
     const user = req.user as JwtPayload;
     await blogServices.deleteBlogService(blogId, user.id);
     sendResponse(res, {

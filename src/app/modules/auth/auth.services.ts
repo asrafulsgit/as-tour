@@ -178,7 +178,7 @@ const forgotPasswordService = async (email: string) => {
 
   const resetUILink = `${envs.FRONTEND_URL}/auth/forgot-password/reset?token=${resetToken}`;
 
-  sendEmail({
+  await sendEmail({
     to: isUserExist.email,
     subject: "Password Reset",
     templateName: "forgotPassword",

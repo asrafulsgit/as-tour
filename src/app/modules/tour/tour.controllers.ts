@@ -37,7 +37,7 @@ const getAllTourTypesController = asyncHandler(
 // get signle tourType controller
 const getSingleTourTypeController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const tourTypeId = req.params.id;
+    const tourTypeId = req.params.id as string;
     const results = await tourTypeServices.getSingleTourTypeService(tourTypeId);
 
     sendResponse(res, {
@@ -52,7 +52,7 @@ const getSingleTourTypeController = asyncHandler(
 // update tourType controller
 const updateTourTypeController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const tourTypeId = req.params.id;
+    const tourTypeId = req.params.id as string;
 
     const results = await tourTypeServices.updateTourTypeService(
       tourTypeId,
@@ -71,7 +71,7 @@ const updateTourTypeController = asyncHandler(
 // delete tourType controller
 const deletetourTypeController = asyncHandler(
   async (req: Request, res: Response) => {
-    const toutTypeId = req.params.id;
+    const toutTypeId = req.params.id as string;
     await tourTypeServices.deleteTourTypeService(toutTypeId);
     sendResponse(res, {
       statusCode: httpStatusCode.OK,
@@ -127,7 +127,7 @@ const getAllToursController = asyncHandler(
 // get signle tour controller
 const getSingleTourController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const tourId = req.params.id;
+    const tourId = req.params.id as string;
     const results = await tourServices.getSingleTourService(tourId);
 
     sendResponse(res, {
@@ -142,7 +142,7 @@ const getSingleTourController = asyncHandler(
 // update tour controller
 const updateTourController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const tourId = req.params.id;
+    const tourId = req.params.id as string;
 
     const files = req.files as Express.Multer.File[] | undefined;
 
@@ -168,7 +168,7 @@ const updateTourController = asyncHandler(
 // delete tour controller
 const deletetourController = asyncHandler(
   async (req: Request, res: Response) => {
-    const tourId = req.params.id;
+    const tourId = req.params.id as string;
     await tourServices.deleteTourService(tourId);
     sendResponse(res, {
       statusCode: httpStatusCode.OK,

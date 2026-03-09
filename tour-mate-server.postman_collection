@@ -1,0 +1,2885 @@
+{
+  "info": {
+    "_postman_id": "1dcf8fa9-44df-4f73-9eed-ba4df1d6628e",
+    "name": "tour-mate",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38970575",
+    "_collection_link": "https://go.postman.co/collection/38970575-1dcf8fa9-44df-4f73-9eed-ba4df1d6628e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "authentication",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"sakib\",\r\n  \"email\" : \"sakib@gmail.com\",\r\n  \"password\" : \"sakib123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/v1/user/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"miraz@gmail.com\",\r\n    \"password\" : \"miraz123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "change password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"oldPassword\" : \"farhan\",\r\n    \"newPassword\" : \"farhan123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/change-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "change-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "set password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZWQ2ZTIxYTY5OTZjZmFhYmQ0ZiIsImVtYWlsIjoiYXNyYWZ1bGlzbGFtLmRldjIzQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzYxMzE2NTA1LCJleHAiOjE3NjE0MDI5MDV9.y2iO3Q0n2t1jqmZK6eE5qPP92HTGAXxOTPGEkXoFmJU",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"password\" : \"asraful23\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/set-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "set-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "forgot password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZWQ2ZTIxYTY5OTZjZmFhYmQ0ZiIsImVtYWlsIjoiYXNyYWZ1bGlzbGFtLmRldjIzQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzYxMzE2NTA1LCJleHAiOjE3NjE0MDI5MDV9.y2iO3Q0n2t1jqmZK6eE5qPP92HTGAXxOTPGEkXoFmJU",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"email\" : \"fullstackdev2356@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/forgot-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reset password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZWQ2ZTIxYTY5OTZjZmFhYmQ0ZiIsImVtYWlsIjoiYXNyYWZ1bGlzbGFtLmRldjIzQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzYxODkzNDE5LCJleHAiOjE3NjE4OTQwMTl9.g3-mCrQY15vJgAj-HknkuEG85vdVzO7ZcfUjXBnmcuk",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"id\" : \"68e61ed6e21a6996cfaabd4f\",\r\n   \"newPassword\" : \"asraful123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/reset-password",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"farhan@gmail.com\",\r\n    \"password\" : \"farhan123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/logout",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refresh token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/auth/refresh-token",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "update user",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "6d99d6fa-b88a-4e7e-83f2-9dd522044ba6",
+                  "src": "/C:/Users/Asraful/Downloads/download.jfif",
+                  "disabled": true
+                },
+                {
+                  "key": "phone",
+                  "value": "018502643210",
+                  "type": "text",
+                  "uuid": "25639f34-6943-4b90-abea-9652e34a115d",
+                  "disabled": true
+                },
+                {
+                  "key": "address",
+                  "value": "Pachgachiya,Feni",
+                  "type": "text",
+                  "uuid": "9695559a-1398-43f3-9d93-8cc80812d5e3",
+                  "disabled": true
+                },
+                {
+                  "key": "role",
+                  "value": "USER",
+                  "type": "text",
+                  "uuid": "294c4da4-3b04-44a4-bff1-d262db837810",
+                  "disabled": true
+                },
+                {
+                  "key": "isActive",
+                  "value": "BLOCKED",
+                  "type": "text",
+                  "uuid": "07ac1d38-7627-495e-9fac-9df90eb894f2"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/user/68adf735b0768c877dd42c4a",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "68adf735b0768c877dd42c4a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Farhan\",\r\n    \"isActive\" : \"hello\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://tour-mate-server-swart.vercel.app/api/v1/user/all-users",
+              "protocol": "https",
+              "host": [
+                "tour-mate-server-swart",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "all-users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user booking stats",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Farhan\",\r\n    \"isActive\" : \"hello\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/user/booking/stats",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "booking",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user profile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Farhan\",\r\n    \"isActive\" : \"hello\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/user/me",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user details",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Farhan\",\r\n    \"isActive\" : \"hello\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/user/68adf735b0768c877dd42c4a",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "68adf735b0768c877dd42c4a"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "users",
+          "item": [
+            {
+              "name": "all user",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTczMjEyOSwiZXhwIjoxNzU5ODE4NTI5fQ.fmKq7gyW4r026y8lwCq5eHBfGpMgrUAfT9suUfN9qsQ",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/user/all-users",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "user",
+                    "all-users"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "division",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWQ1NjNhNjcwMzI3Mjk0YzlhNTBjMyIsImVtYWlsIjoibWlyYXpAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NjExMzk4NjAsImV4cCI6MTc2MTIyNjI2MH0.rc6varBzfSywMckHCoMhp8llSRjewEPfQStaOa3K2F4",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Dhaka",
+                  "type": "text",
+                  "uuid": "a04c0e73-03d6-4bf4-8912-5572f16b6297"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "9c84b3b6-15c5-461d-ac87-22400994f8bb",
+                  "src": "/C:/Users/Asraful/Downloads/asraful-pic.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/division/create",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "division",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all divisions",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/division/all",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "division",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all divisions tour count",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/division/tour-count",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "division",
+                "tour-count"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get single division",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/division/68e8d3d95579e8e0f9f164f0",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "division",
+                "68e8d3d95579e8e0f9f164f0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update division",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "6ed80eed-a19b-4001-8a88-dd2a63029e55",
+                  "src": "/C:/Users/Asraful/Downloads/national-memmorial-front.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/division/68f9e2353b6dde20ed1372ee",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "division",
+                "68f9e2353b6dde20ed1372ee"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete division",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"name\" : \"Dhaka\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/division/68e8d64c3545d25839a491c0",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "division",
+                "68e8d64c3545d25839a491c0"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "guide",
+      "item": [
+        {
+          "name": "apply guide",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWQ1NjNhNjcwMzI3Mjk0YzlhNTBjMyIsImVtYWlsIjoibWlyYXpAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NjExMzk4NjAsImV4cCI6MTc2MTIyNjI2MH0.rc6varBzfSywMckHCoMhp8llSRjewEPfQStaOa3K2F4",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "divisionId",
+                  "value": "68e8d3d95579e8e0f9f164f0",
+                  "type": "text",
+                  "uuid": "a04c0e73-03d6-4bf4-8912-5572f16b6297"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "uuid": "9c84b3b6-15c5-461d-ac87-22400994f8bb",
+                  "src": [
+                    "postman-cloud:///1f0fdec4-c3c1-4300-b587-4336fcc9c282",
+                    "postman-cloud:///1f03f96a-82ed-4090-9275-061745f5f7a7"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/apply",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "apply"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "approve application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/approve/697ce2b515b8188f17c15c46",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "approve",
+                "697ce2b515b8188f17c15c46"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reject application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/reject/697cd269710380b1d20f2070",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "reject",
+                "697cd269710380b1d20f2070"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all guides",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/all",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get single guide",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/697ce2b515b8188f17c15c46",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "697ce2b515b8188f17c15c46"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get guide applications",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/applications",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get guide stats",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/stats",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get guide assigned tours",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/guide/assigned/tours",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "guide",
+                "assigned",
+                "tours"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "booking",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZWQ2ZTIxYTY5OTZjZmFhYmQ0ZiIsImVtYWlsIjoiYXNyYWZ1bGlzbGFtLmRldjIzQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzYxMzk2MzE1LCJleHAiOjE3NjE0ODI3MTV9.Nc6ER92qAH_6QPa6Yp06jLtbnHw9oXNwoFylNxKV9q4",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tour\" : \"68f8dee522e1e1bbb3d793b3\",\r\n    \"guests\" : 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/booking/create",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "booking",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all bookings",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/booking/all",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "booking",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get single booking",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZjMzOTM1MDFlMDg0MjNkZWI5ZSIsImVtYWlsIjoiZnVsbHN0YWNrZGV2MjM1NkBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc2MTQ1NzI2OCwiZXhwIjoxNzYxNTQzNjY4fQ.pNcMhEUG8pF26OfCZcsQ1aq6P74fgn6SGcdfM-F4jFM",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/booking/68fccb073db2f3ab879fe730",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "booking",
+                "68fccb073db2f3ab879fe730"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update booking status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"status\" : \"PENDING\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/booking/68fccb073db2f3ab879fe730/status",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "booking",
+                "68fccb073db2f3ab879fe730",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "my bookings",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZWQ2ZTIxYTY5OTZjZmFhYmQ0ZiIsImVtYWlsIjoiYXNyYWZ1bGlzbGFtLmRldjIzQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzYxNDU3NjcyLCJleHAiOjE3NjE1NDQwNzJ9.IK9_XlAMzFm8T6xGHZwfSMVSU-lXJbq5sai61TawT_E",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/booking/my-bookings",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "booking",
+                "my-bookings"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "item": [
+        {
+          "name": "re payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWQ1NjNhNjcwMzI3Mjk0YzlhNTBjMyIsImVtYWlsIjoibWlyYXpAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NjExMzk4NjAsImV4cCI6MTc2MTIyNjI2MH0.rc6varBzfSywMckHCoMhp8llSRjewEPfQStaOa3K2F4",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tour\" : \"68f8dee522e1e1bbb3d793b3\",\r\n    \"guests\" : 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/payment/re-payment/68f9c7aa03920c8fcc3f1319",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "payment",
+                "re-payment",
+                "68f9c7aa03920c8fcc3f1319"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "download invoice",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTYxZWQ2ZTIxYTY5OTZjZmFhYmQ0ZiIsImVtYWlsIjoiYXNyYWZ1bGlzbGFtLmRldjIzQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzYxMzk2MzE1LCJleHAiOjE3NjE0ODI3MTV9.Nc6ER92qAH_6QPa6Yp06jLtbnHw9oXNwoFylNxKV9q4",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tour\" : \"68f8dee522e1e1bbb3d793b3\",\r\n    \"guests\" : 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/payment/invoice/68fccb073db2f3ab879fe732",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "payment",
+                "invoice",
+                "68fccb073db2f3ab879fe732"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "tours",
+      "item": [
+        {
+          "name": "tourType",
+          "item": [
+            {
+              "name": "create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/tourType/create",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "tourType",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get all tourTypes",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/tourType/all",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "tourType",
+                    "all"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get single tourType",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/tourType/68e8dda7dcada357d1ff7de8",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "tourType",
+                    "68e8dda7dcada357d1ff7de8"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update tourType",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/tourType/68e8dda7dcada357d1ff7de8",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "tourType",
+                    "68e8dda7dcada357d1ff7de8"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete tourType",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/tourType/68e8dda7dcada357d1ff7de8",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "tourType",
+                    "68e8dda7dcada357d1ff7de8"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "division",
+          "item": [
+            {
+              "name": "create",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name",
+                      "value": "Feni",
+                      "type": "text",
+                      "uuid": "56b09cf0-100a-4b7d-ab8d-e8d8c0cf3340"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "cf350a59-d1a7-4b71-8228-5c5dec6b9c91",
+                      "src": "postman-cloud:///1f03f96a-82ed-4090-9275-061745f5f7a7"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/division/create",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "division",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get divisions",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/division/all",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "division",
+                    "all"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get single division",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}"
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/division/feni-division",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "division",
+                    "feni-division"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update division",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "cde6cadb-f6b5-42d6-98b9-d9a65d8bfef6",
+                      "src": "postman-cloud:///1efab5a3-8df9-4d80-9b64-d5074be74c06"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/division/68fb7a17806c4fce322633b0",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "division",
+                    "68fb7a17806c4fce322633b0"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete division",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n   \"name\" : \"Dhaka\"\r\n}"
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/division/68e8d3d95579e8e0f9f164f0",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "division",
+                    "68e8d3d95579e8e0f9f164f0"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "tour",
+          "item": [
+            {
+              "name": "create tour",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MTE0MDQzOCwiZXhwIjoxNzYxMjI2ODM4fQ.sOPNK8AYOjbdLE617bELnjFK-FyvUcu0OKNm1HEuDtQ",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\": \"Sundarban Adventure Tour\",\r\n    \"description\": \"Explore the world’s largest mangrove forest with a thrilling boat ride, wildlife spotting, and serene river views.\",\r\n    \"images\": [\r\n       \r\n    ],\r\n    \"location\": \"Khulna, Bangladesh\",\r\n    \"costFrom\": 8500,\r\n    \"startDate\": \"2025-11-05T00:00:00.000Z\",\r\n    \"endDate\": \"2025-11-08T00:00:00.000Z\",\r\n    \"included\": [\"Boat ride\", \"Meals\", \"Guide\", \"Accommodation\"],\r\n    \"amenities\": [\"WiFi\", \"Air Conditioning\", \"First Aid\"],\r\n    \"tourPlan\": [\r\n      \"Day 1: Arrival and check-in on the boat\",\r\n      \"Day 2: Explore Karamjol wildlife sanctuary\",\r\n      \"Day 3: Visit Kotka beach and Jamtola watchtower\",\r\n      \"Day 4: Return to Khulna\"\r\n    ],\r\n    \"maxGuest\": 20,\r\n    \"minAge\": 12,\r\n    \"division\": \"68e8d3e95579e8e0f9f164fa\",\r\n    \"tourType\": \"68e8dd3cdcada357d1ff7dc2\"\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/create",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get all tours",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDQ1MzM2NCwiZXhwIjoxNzYwNTM5NzY0fQ.ygZ3PqnyNWGgV8TCmjCI5pnKJASW2ksRGZBa7lL2t5M",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\": \"Sundarban Adventure Tour\",\r\n    \"description\": \"Explore the world’s largest mangrove forest with a thrilling boat ride, wildlife spotting, and serene river views.\",\r\n    \"images\": [\r\n      \"https://example.com/images/sundarban1.jpg\" \r\n    ],\r\n    \"location\": \"Khulna, Bangladesh\",\r\n    \"costFrom\": 8500,\r\n    \"startDate\": \"2025-11-05T00:00:00.000Z\",\r\n    \"endDate\": \"2025-11-08T00:00:00.000Z\",\r\n    \"included\": [\"Boat ride\", \"Meals\", \"Guide\", \"Accommodation\"],\r\n    \"amenities\": [\"WiFi\", \"Air Conditioning\", \"First Aid\"],\r\n    \"tourPlan\": [\r\n      \"Day 1: Arrival and check-in on the boat\",\r\n      \"Day 2: Explore Karamjol wildlife sanctuary\",\r\n      \"Day 3: Visit Kotka beach and Jamtola watchtower\",\r\n      \"Day 4: Return to Khulna\"\r\n    ],\r\n    \"maxGuest\": 20,\r\n    \"minAge\": 12,\r\n    \"division\": \"68e8d3e95579e8e0f9f164fa\",\r\n    \"tourType\": \"68e8dd3cdcada357d1ff7dc2\"\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/all-tours?search=khulna&costFrom=8500",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "all-tours"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "khulna",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "khulna"
+                    },
+                    {
+                      "key": "costFrom",
+                      "value": "8500",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get single tour",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\" : \"Chattogram\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/68f8dee522e1e1bbb3d793b3",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "68f8dee522e1e1bbb3d793b3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update tour",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MTEzMjgxNSwiZXhwIjoxNzYxMjE5MjE1fQ.3cuhBWdyTGGPHgeFLi3JdDbbw5gPe7GjMZK2Q_q8bY0",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "images",
+                      "type": "file",
+                      "uuid": "900095ea-6415-426b-9c80-af36086702ab",
+                      "src": "postman-cloud:///1f03f96b-000e-4ba0-9642-f13784be8899"
+                    },
+                    {
+                      "key": "data",
+                      "value": "[\"https://res.cloudinary.com/dbpes24kn/image/upload/v1761313779/1cbbd6e3-1348-4fd3-ae8c-b91f856e880d-1761313772928-Basically-Non-Herbs-01.webp\",\"https://res.cloudinary.com/dbpes24kn/image/upload/v1761313779/ef1a7736-275d-4ca7-873c-8dd88993a450-1761313772767-colorful-succulents.jpg\"]",
+                      "type": "text",
+                      "uuid": "c8dfc248-66a2-4850-a7db-5288cc589e79"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/68f8dee522e1e1bbb3d793b3",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "68f8dee522e1e1bbb3d793b3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete tour",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTkzNzM3OCwiZXhwIjoxNzYwMDIzNzc4fQ.ek4X17v2NKcvXE2M0btbFhRhaSA3mRzCXMn9FaplTIc",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n   \"name\" : \"Dhaka\"\r\n}"
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/tour/id",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "tour",
+                    "id"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OTP",
+      "item": [
+        {
+          "name": "OTP send",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"farhan@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/otp/send",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "otp",
+                "send"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "OTP verify",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"asrafulislam.dev23@gmail.com\",\r\n    \"otp\" : \"144806\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/otp/verify",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "otp",
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "item": [
+        {
+          "name": "user",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"farhan@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/stats/user",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "stats",
+                "user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tour",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"farhan@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/stats/tour",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "stats",
+                "tour"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "booking",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"farhan@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/stats/booking",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "stats",
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "payment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"farhan@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/stats/payment",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "stats",
+                "payment"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "review",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tour\" : \"68f8dee522e1e1bbb3d793b3\",\r\n    \"rating\" : \"2\",\r\n    \"comment\" : \"i have learned so many things from this tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/review/create",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "review",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get reviews for a tour",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/review/68f8dee522e1e1bbb3d793b3",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "review",
+                "68f8dee522e1e1bbb3d793b3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete review",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Festival & Events Tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/review/6990a7784584b470368d5872",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "review",
+                "6990a7784584b470368d5872"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "contact",
+      "item": [
+        {
+          "name": "email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"karim\",\r\n    \"email\" : \"asrafulislam.dev23@gmail.com\",\r\n    \"subject\" : \"About send martein tour\",\r\n    \"message\" : \"I have learned so many things from this tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/contact/email",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "contact",
+                "email"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "subscription",
+      "item": [
+        {
+          "name": "email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"karim\",\r\n    \"email\" : \"asrafulislam.dev23@gmail.com\",\r\n    \"subject\" : \"About send martein tour\",\r\n    \"message\" : \"I have learned so many things from this tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/subscription",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "subscription"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "blog",
+      "item": [
+        {
+          "name": "create blog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "How to Be a Responsible Traveler",
+                  "type": "text",
+                  "uuid": "e46913ba-9355-4708-a506-3bf4ae0f23ae"
+                },
+                {
+                  "key": "description",
+                  "value": "Learn the best practices for sustainable and ethical travel that respects local communities.",
+                  "type": "text",
+                  "uuid": "00ac6e59-187d-4df9-9143-ac6b85af5cf1"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "55bf5712-01f1-4985-ad93-628e8048cfb8",
+                  "src": "postman-cloud:///1f10be63-c66a-46e0-8434-ed288852c5ba"
+                },
+                {
+                  "key": "type",
+                  "value": "Travel Tips",
+                  "type": "text",
+                  "uuid": "6c1b35c4-573d-4d24-8afd-536c38aba056"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/blog",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "blog"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all blog",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "How to Be a Responsible Traveler",
+                  "type": "text",
+                  "uuid": "e46913ba-9355-4708-a506-3bf4ae0f23ae"
+                },
+                {
+                  "key": "description",
+                  "value": "Learn the best practices for sustainable and ethical travel that respects local communities.",
+                  "type": "text",
+                  "uuid": "00ac6e59-187d-4df9-9143-ac6b85af5cf1"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "55bf5712-01f1-4985-ad93-628e8048cfb8",
+                  "src": "postman-cloud:///1f10be63-c66a-46e0-8434-ed288852c5ba"
+                },
+                {
+                  "key": "type",
+                  "value": "Travel Tips",
+                  "type": "text",
+                  "uuid": "6c1b35c4-573d-4d24-8afd-536c38aba056"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/blog/all",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "blog",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get single blog",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "How to Be a Responsible Traveler",
+                  "type": "text",
+                  "uuid": "e46913ba-9355-4708-a506-3bf4ae0f23ae"
+                },
+                {
+                  "key": "description",
+                  "value": "Learn the best practices for sustainable and ethical travel that respects local communities.",
+                  "type": "text",
+                  "uuid": "00ac6e59-187d-4df9-9143-ac6b85af5cf1"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "55bf5712-01f1-4985-ad93-628e8048cfb8",
+                  "src": "postman-cloud:///1f10be63-c66a-46e0-8434-ed288852c5ba"
+                },
+                {
+                  "key": "type",
+                  "value": "Travel Tips",
+                  "type": "text",
+                  "uuid": "6c1b35c4-573d-4d24-8afd-536c38aba056"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/blog/6994444122c6cc189453a49b",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "blog",
+                "6994444122c6cc189453a49b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update blog",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "How to Be",
+                  "type": "text",
+                  "uuid": "e46913ba-9355-4708-a506-3bf4ae0f23ae"
+                },
+                {
+                  "key": "description",
+                  "value": "Learn the best practices for sustainable and ethical travel that respects local communities.",
+                  "type": "text",
+                  "uuid": "00ac6e59-187d-4df9-9143-ac6b85af5cf1",
+                  "disabled": true
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "55bf5712-01f1-4985-ad93-628e8048cfb8",
+                  "src": "postman-cloud:///1f10bebc-b3cb-4710-ad50-4ee1fcb2837a"
+                },
+                {
+                  "key": "type",
+                  "value": "Travel Tips",
+                  "type": "text",
+                  "uuid": "6c1b35c4-573d-4d24-8afd-536c38aba056",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/blog/699453ff4b4dbc62e131af4c",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "blog",
+                "699453ff4b4dbc62e131af4c"
+              ],
+              "query": [
+                {
+                  "key": "title",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "image",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete blog",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YWRmNzM1YjA3NjhjODc3ZGQ0MmM0YSIsImVtYWlsIjoiZmFyaGFuQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MDA4ODg4MywiZXhwIjoxNzYwMTc1MjgzfQ.MfoLPp2Ct1V8AaVw5F9ljVtKS1AansH5yBlCeBWQU3A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "How to Be a Responsible Traveler",
+                  "type": "text",
+                  "uuid": "e46913ba-9355-4708-a506-3bf4ae0f23ae"
+                },
+                {
+                  "key": "description",
+                  "value": "Learn the best practices for sustainable and ethical travel that respects local communities.",
+                  "type": "text",
+                  "uuid": "00ac6e59-187d-4df9-9143-ac6b85af5cf1"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "55bf5712-01f1-4985-ad93-628e8048cfb8",
+                  "src": "postman-cloud:///1f10be63-c66a-46e0-8434-ed288852c5ba"
+                },
+                {
+                  "key": "type",
+                  "value": "Travel Tips",
+                  "type": "text",
+                  "uuid": "6c1b35c4-573d-4d24-8afd-536c38aba056"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/blog/6994444122c6cc189453a49b",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "blog",
+                "6994444122c6cc189453a49b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
