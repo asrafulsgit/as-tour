@@ -50,7 +50,7 @@ const userUpdateService = async (
     throw new AppError(
       httpStatusCode.BAD_GATEWAY,
       "You cannot modify someone else's data.",
-    );
+    ); 
   }
   const isUserExist = await User.findById(userId);
   if (!isUserExist) {
