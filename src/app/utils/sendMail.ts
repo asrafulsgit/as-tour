@@ -1,58 +1,66 @@
-
 import nodemailer from "nodemailer";
+import path from "path";
+import ejs from "ejs";
 import { envs } from "../config/env";
-import path from 'path';
-import ejs from 'ejs';
 import AppError from "../errorHelpers/appError";
 
 const transporter = nodemailer.createTransport({
-    secure: true,
-    auth: {
-        user: envs.SMTP_USER,
-        pass: envs.SMTP_PASS
-    },
-    port: Number(envs.SMTP_PORT),
-    host: envs.SMTP_HOST
-})
+  host: envs.SMTP_HOST,
+  port: Number(envs.SMTP_PORT),
+  secure: Number(envs.SMTP_PORT) === 465,  
+  auth: {
+    user: envs.SMTP_USER,
+    pass: envs.SMTP_PASS,
+  },
+});
 
 interface SendEmailOptions {
-    to: string,
-    subject: string;
-    templateName: string;
-    templateData?: Record<string, any>
-    attachments?: {
-        filename: string,
-        content: Buffer | string,
-        contentType: string
-    }[]
+  to: string;
+  subject: string;
+  templateName: string;
+  templateData?: Record<string, any>;
+  attachments?: {
+    filename: string;
+    content: Buffer | string;
+    contentType: string;
+  }[];
 }
 
 export const sendEmail = async ({
-    to,
-    subject,
-    templateName,
-    templateData,
-    attachments
+  to,
+  subject,
+  templateName,
+  templateData,
+  attachments,
 }: SendEmailOptions) => {
-    try {
-        const templatePath = path.join(__dirname, `templates/${templateName}.ejs`)
-        const html = await ejs.renderFile(templatePath, templateData)
-        const info = await transporter.sendMail({
-            from: envs.SMTP_FROM,
-            to: to,
-            subject: subject,
-            html: html,
-            attachments: attachments?.map(attachment => ({
-                filename: attachment.filename,
-                content: attachment.content,
-                contentType: attachment.contentType
-            }))
-        })
-        console.log(`\u2709\uFE0F Email sent to ${to}: ${info.messageId}`);
-    } catch (error: any) {
-        console.log("email sending error", error.message);
-        throw new AppError(401, "Email error")
-    }
+  try {
+    // Use project root for templates (works in dev & production)
+    const templatePath = path.join(
+      process.cwd(),
+      "src/app/utils/templates",
+      `${templateName}.ejs`
+    );
 
-}
+    // Render EJS template
+    const html = await ejs.renderFile(templatePath, templateData);
 
+    // Send email
+    const info = await transporter.sendMail({
+      from: envs.SMTP_FROM,
+      to,
+      subject,
+      html,
+      attachments: attachments?.map((att) => ({
+        filename: att.filename,
+        content: att.content,
+        contentType: att.contentType,
+      })),
+    });
+
+    console.log(`✉️ Email sent to ${to}: ${info.messageId}`);
+    return info;
+  } catch (error: any) {
+    console.error("Email sending error details:", error);
+    throw new AppError(500, "Email sending failed: " + error.message);
+  }
+};

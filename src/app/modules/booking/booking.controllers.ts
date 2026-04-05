@@ -44,7 +44,7 @@ const getUserBookingsController = asyncHandler(
 // get single booking
 const getSingleBookingController = asyncHandler(
   async (req: Request, res: Response) => {
-    const bookingId = req.params.bookingId;
+    const bookingId = req.params.bookingId as string;
     const booking = await bookingServices.getBookingByIdService(
       bookingId as string,
     );
@@ -77,7 +77,7 @@ const getAllBookingsController = asyncHandler(
 // update booking
 const updateBookingStatusController = asyncHandler(
   async (req: Request, res: Response) => {
-    const bookingId = req.params.bookingId;
+    const bookingId = req.params.bookingId as string;
     const status = req.body.status;
     const updated = await bookingServices.updateBookingStatusService(
       bookingId as string,

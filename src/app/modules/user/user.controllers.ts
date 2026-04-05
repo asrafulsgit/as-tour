@@ -21,7 +21,7 @@ const createUser = asyncHandler(
 
 const updateUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.params.id;
+    const userId = req.params.id as string;
     const decodedToken = req.user;
     const image = req.file?.path;
     const payload: Partial<IUser> = {

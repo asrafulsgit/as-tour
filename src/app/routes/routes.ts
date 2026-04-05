@@ -11,6 +11,7 @@ import { guideRouter } from "../modules/guide/guide.router";
 import { reviewRouter } from "../modules/review/review.router";
 import { contactRouter } from "../modules/contact/contact.router";
 import { blogRouter } from "../modules/blog/blog.router";
+import { subscriptionRouter } from "../modules/subscription/route";
 
 export const router = Router();
 
@@ -62,6 +63,10 @@ const routes = [
   {
     path: "/blog",
     route: blogRouter,
+  },
+  {
+    path: "/subscription",
+    route: subscriptionRouter,
   },
 ];
 

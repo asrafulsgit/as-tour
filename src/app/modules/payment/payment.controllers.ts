@@ -10,7 +10,7 @@ import { sslCommerzServices } from "../sslCommerz/ssl.services";
 
 // re payment controller 
 const initPaymentController = asyncHandler(async (req: Request, res: Response) => {
-    const bookingId = req.params.bookingId;
+    const bookingId = req.params.bookingId as string;
     const result = await paymentServices.initPaymentService(bookingId as string)
     sendResponse(res, {
         statusCode: httpStatusCode.CREATED,
@@ -57,7 +57,7 @@ const paymentCancelController = asyncHandler(async (req: Request,
 // payment invoice controller
 const paymentInvoiceController = asyncHandler(async (req: Request, 
     res: Response) => { 
-   const paymentId = req.params.paymentId;
+   const paymentId = req.params.paymentId as string;
    const user = req.user as JwtPayload;
    const result = await paymentServices.getInvoiceService(paymentId,user.id)
     sendResponse(res, {

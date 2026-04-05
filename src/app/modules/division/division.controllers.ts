@@ -56,7 +56,7 @@ const getAllDivisionsTourCountController = asyncHandler(
 // get signle division controller
 const getSingleDivisionController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id;
+    const id = req.params.id as string;
     const results = await divisionServices.getSingleDivisionService(id);
 
     sendResponse(res, {
@@ -71,7 +71,7 @@ const getSingleDivisionController = asyncHandler(
 // update division controller
 const updateDivisionController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const divisionId = req.params.id;
+    const divisionId = req.params.id as string;
     const image = req.file?.path;
 
     const payload: Partial<IDivision> = {
@@ -95,7 +95,7 @@ const updateDivisionController = asyncHandler(
 // delete division controller
 const deleteDivisionController = asyncHandler(
   async (req: Request, res: Response) => {
-    const divisionId = req.params.id;
+    const divisionId = req.params.id as string;
     await divisionServices.deleteDivisionService(divisionId);
     sendResponse(res, {
       statusCode: httpStatusCode.OK,

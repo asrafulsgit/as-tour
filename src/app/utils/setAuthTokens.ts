@@ -10,15 +10,17 @@ export const setAuthTokens = (res: Response, tokens: AuthTokens) => {
   if (tokens.accessToken) {
     res.cookie("accessToken", tokens.accessToken, {
       httpOnly: true,
-      secure: envs.NODE_ENV === "production",
-      sameSite: envs.NODE_ENV === "production" ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
+      path: "/",
     });
   }
   if (tokens.refreshToken) {
     res.cookie("refreshToken", tokens.refreshToken, {
       httpOnly: true,
-      secure: envs.NODE_ENV === "production",
-      sameSite: envs.NODE_ENV === "production" ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
+      path: "/",
     });
   }
 };
