@@ -13,7 +13,7 @@ passport.use(
     {
       clientID: envs.GOOGLE_CLIENT_ID,
       clientSecret: envs.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${envs.FRONTEND_URL}${envs.GOOGLE_CALLBACK_URL}`,
+      callbackURL: `${envs.BACKEND_URL}${envs.GOOGLE_CALLBACK_URL}`,
     },
     async (
       accessToken: string,
