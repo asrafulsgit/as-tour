@@ -119,9 +119,14 @@ const authResetPasswordController = asyncHandler(
 const googleAuthLoginController = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user;
-    const tokens = getBothToken(user!);
-    setAuthTokens(res, tokens);
-    res.redirect(envs.FRONTEND_URL);
+    if (user) {
+      const tokens = getBothToken(user);
+      res.redirect(
+        `${envs.FRONTEND_URL}/auth/google/success?accessToken=${tokens.accessToken}&refreshToken=${tokens.refreshToken}&email=${(user as any).email}`,
+      );
+    }else{
+      res.redirect(`${envs.FRONTEND_URL}/auth/google/failed?message=User-not-fount`)
+    }
   },
 );
 
